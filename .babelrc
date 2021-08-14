@@ -1,0 +1,25 @@
+{
+  "presets": [
+    "@babel/env",
+    [
+      "@babel/react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/transform-runtime",
+    "@babel/syntax-dynamic-import",
+    [
+      "module-resolver",
+      {
+        "root": "src",
+        "alias": {
+          "~": "."
+        }
+      }
+    ]
+  ],
+  "sourceType": "unambiguous"
+}

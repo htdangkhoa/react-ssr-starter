@@ -102,3 +102,14 @@ dist
 
 # TernJS port file
 .tern-port
+
+build
+
+public/*
+!public/robots.txt
+!public/android-icon-*
+!public/apple-icon*
+!public/browserconfig.xml
+!public/favicon*
+!public/manifest.json
+!public/ms-icon*
