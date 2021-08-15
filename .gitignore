@@ -111,5 +111,6 @@ public/*
 !public/apple-icon*
 !public/browserconfig.xml
 !public/favicon*
-!public/manifest.json
 !public/ms-icon*
+!public/icon-192x192.png
+!public/icon-512x512.png

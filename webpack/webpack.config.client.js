@@ -1,6 +1,7 @@
 const { merge } = require('webpack-merge');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -30,6 +31,41 @@ module.exports = merge(config, {
     new MiniCssExtractPlugin({
       filename: isDev() ? '[name].css' : '[name].[contenthash:8].css',
       chunkFilename: isDev() ? '[id].css' : '[id].[contenthash:8].css',
+    }),
+    new WebpackPwaManifest({
+      name: 'React SSR Starter',
+      short_name: 'React SSR',
+      description: 'The best react universal starter boilerplate in the world.',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials',
+      filename: 'manifest.json',
+      icons: [
+        {
+          src: getPath('public/favicon-16x16.png'),
+          size: '16x16',
+          type: 'image/x-icon',
+        },
+        {
+          src: getPath('public/favicon-32x32.png'),
+          size: '32x32',
+          type: 'image/x-icon',
+        },
+        {
+          src: getPath('public/favicon-96x96.png'),
+          size: '96x96',
+          type: 'image/x-icon',
+        },
+        {
+          src: getPath('public/icon-192x192.png'),
+          size: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: getPath('public/icon-512x512.png'),
+          size: '512x512',
+          type: 'image/png',
+        },
+      ],
     }),
     isDev() && new webpack.HotModuleReplacementPlugin(),
     isDev() && new ReactRefreshWebpackPlugin(),
