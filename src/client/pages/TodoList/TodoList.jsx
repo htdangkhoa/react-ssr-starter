@@ -21,11 +21,9 @@ const TodoListAsyncComponent = memo(() => {
         <li key={makeId()}>
           <input id={`todo-${todo.id}`} type='checkbox' disabled checked={todo.completed} />
 
-          <Link to={`/todo-info/${todo.id}`}>
-            <label htmlFor={`todo-${todo.id}`} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-              {todo.title}
-            </label>
-          </Link>
+          <label htmlFor={`todo-${todo.id}`} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+            <Link to={`/todo-info/${todo.id}`}>{todo.title}</Link>
+          </label>
         </li>
       ))}
     </ul>
