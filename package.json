@@ -9,7 +9,8 @@
     "build": "npm run build:backend && npm run build:frontend",
     "dev": "env-cmd -f .env webpack --config webpack/webpack.config.server.js",
     "start": "env-cmd -f .env node build/index.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
@@ -61,6 +62,7 @@
     "file-loader": "^6.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "glob": "^7.1.7",
+    "husky": "^7.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "mini-css-extract-plugin": "^2.2.0",
