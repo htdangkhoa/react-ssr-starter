@@ -30,8 +30,6 @@ const TodoInfoComponent = () => {
 
   useIsomorphicEffect(() => {
     dispatch(getTodoInfoIfNeed(params.id));
-
-    console.log('hello');
   }, []);
 
   return (
