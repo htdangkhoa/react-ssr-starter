@@ -8,7 +8,7 @@ const createStore = ({ initialState } = {}) => {
     devTools: __DEV__,
   });
 
-  return { store };
+  return store;
 };
 
 export default createStore;

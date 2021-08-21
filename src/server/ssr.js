@@ -13,7 +13,7 @@ import routes from 'client/routes';
 import renderHtml from './render-html';
 
 const ssr = async (req, res) => {
-  const { store } = createStore();
+  const store = createStore();
 
   const loadBranchData = () => {
     const promises = routes
