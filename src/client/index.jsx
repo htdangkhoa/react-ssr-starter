@@ -11,7 +11,7 @@ import createStore from './store';
 const initialState = window.__INITIAL_STATE__;
 delete window.__INITIAL_STATE__;
 
-const { store } = createStore({ initialState });
+const store = createStore({ initialState });
 
 const render = () => {
   ReactDOM.hydrate(

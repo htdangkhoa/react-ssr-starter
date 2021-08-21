@@ -1,16 +1,12 @@
 import React from 'react';
-import { ProviderWithStore, renderPage } from 'tests/utils';
+import { render } from 'tests/utils';
 import { App } from '../App';
 
 test('render <App />', async () => {
   const {
     container,
     history: { navigate },
-  } = renderPage(
-    <ProviderWithStore>
-      <App />
-    </ProviderWithStore>,
-  );
+  } = render(<App />);
 
   expect(container.innerHTML).toMatch(/React SSR Starter/i);
 

@@ -12,7 +12,7 @@ import routes from 'client/routes';
 
 import renderHtml from './render-html';
 
-const ssr = async (req, res) => {
+const renderController = async (req, res) => {
   const store = createStore();
 
   const loadBranchData = () => {
@@ -64,4 +64,4 @@ const ssr = async (req, res) => {
   return res.send(html);
 };
 
-export default ssr;
+export default renderController;

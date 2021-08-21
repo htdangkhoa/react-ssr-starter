@@ -1,18 +1,38 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
-import { createHistory, createMemorySource, LocationProvider } from '@reach/router';
+import { render as rtlRender } from '@testing-library/react';
+import { createHistory, createMemorySource, LocationProvider, Router } from '@reach/router';
 import createStore from 'client/store';
 
 const store = createStore();
 
-export const renderPage = (page, { route = '/', history = createHistory(createMemorySource(route)) } = {}) => ({
-  ...render(<LocationProvider history={history}>{page}</LocationProvider>),
-  history,
-});
-
-// eslint-disable-next-line react/prop-types
 export const ProviderWithStore = ({ children }) => <Provider store={store}>{children}</Provider>;
 
 export * from '@testing-library/react';
+
+export const render = (
+  ui,
+  { route = '/', history = createHistory(createMemorySource(route)), useRouter = false, useStore = true } = {},
+) => {
+  const Routes = ({ children }) => (
+    <LocationProvider history={history}>{useRouter ? <Router>{children}</Router> : children}</LocationProvider>
+  );
+
+  const Component = ({ children }) =>
+    useStore ? (
+      <ProviderWithStore>
+        <Routes>{children}</Routes>
+      </ProviderWithStore>
+    ) : (
+      <Routes>{children}</Routes>
+    );
+
+  return {
+    ...rtlRender(<Component>{ui}</Component>),
+    history,
+  };
+};
+
+export { rtlRender };

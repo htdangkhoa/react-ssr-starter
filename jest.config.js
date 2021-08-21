@@ -6,6 +6,7 @@
 module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  coverageReporters: ['html', 'lcov'],
   globals: {
     __cwd: process.cwd(),
     __SERVER__: false,

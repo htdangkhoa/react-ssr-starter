@@ -8,9 +8,9 @@
     "build:frontend": "env-cmd -f .env webpack --config webpack/webpack.config.client.js",
     "build": "npm run build:backend && npm run build:frontend",
     "dev": "env-cmd -f .env webpack --config webpack/webpack.config.server.js",
+    "prepare": "husky install",
     "start": "env-cmd -f .env node build/index.js",
-    "test": "jest --runInBand",
-    "prepare": "husky install"
+    "test": "env-cmd -f .env.test jest --runInBand"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
