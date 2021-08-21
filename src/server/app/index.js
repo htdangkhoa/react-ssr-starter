@@ -21,8 +21,6 @@ if (typeof webpackMiddleware === 'function') {
 
 app.use(routes);
 
-app.all('/api/health', (req, res) => res.status(200).json({ message: 'ok' }));
-
 app.get('*', ssr);
 
 export default app;
