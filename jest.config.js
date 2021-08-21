@@ -9,7 +9,7 @@ module.exports = {
   coverageReporters: ['html', 'lcov'],
   globals: {
     __cwd: process.cwd(),
-    __SERVER__: false,
+    __SERVER__: true,
     __DEV__: false,
   },
   moduleNameMapper: {
