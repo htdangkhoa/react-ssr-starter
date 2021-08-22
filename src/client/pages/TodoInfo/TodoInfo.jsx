@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import useIsomorphicEffect from 'client/hooks/useIsomorphicEffect';
+import useIsomorphicLayoutEffect from 'client/hooks/useIsomorphicLayoutEffect';
 import { getTodoInfoIfNeed } from 'client/store/slices/todo-info-slice';
 import { STATUS } from 'configs/constants';
 
@@ -28,7 +28,7 @@ const TodoInfoComponent = () => {
 
   const dispatch = useDispatch();
 
-  useIsomorphicEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     dispatch(getTodoInfoIfNeed(params.id));
   }, []);
 

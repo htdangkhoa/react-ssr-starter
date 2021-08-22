@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from '@reach/router';
 
-import useIsomorphicEffect from 'client/hooks/useIsomorphicEffect';
+import useIsomorphicLayoutEffect from 'client/hooks/useIsomorphicLayoutEffect';
 import { getTodoListIfNeed } from 'client/store/slices/todo-list-slice';
 import { STATUS } from 'configs/constants';
 import { makeId } from 'client/utils/string';
@@ -34,7 +34,7 @@ const TodoListAsyncComponent = memo(() => {
 const TodoListComponent = () => {
   const dispatch = useDispatch();
 
-  useIsomorphicEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     dispatch(getTodoListIfNeed());
   }, []);
 
