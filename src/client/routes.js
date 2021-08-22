@@ -1,6 +1,10 @@
-import { TodoList, loadData as loadDataForTodoList } from './pages/TodoList';
-import { TodoInfo, loadData as loadDataForTodoInfo } from './pages/TodoInfo';
-import { NotFound } from './pages/NotFound';
+import { lazy } from 'react';
+import { loadData as loadDataForTodoList } from './pages/TodoList';
+import { loadData as loadDataForTodoInfo } from './pages/TodoInfo';
+
+const TodoList = lazy(() => import('./pages/TodoList'));
+const TodoInfo = lazy(() => import('./pages/TodoInfo'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const routes = [
   {

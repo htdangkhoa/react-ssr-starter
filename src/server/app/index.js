@@ -3,8 +3,7 @@ import PureHttp from 'pure-http';
 import favicon from 'serve-favicon';
 import compression from 'compression';
 import serve from 'serve-static';
-import ssr from '../ssr';
-import routes from '../routes';
+import render from '../render';
 
 const app = PureHttp();
 
@@ -12,17 +11,17 @@ app.use(favicon(resolve(__cwd, 'public/favicon.ico')));
 app.use(compression());
 app.use(serve(resolve(__cwd, 'public')));
 
+/* istanbul ignore next */
 const webpackMiddleware =
   process.env.NODE_ENV === 'development' ? require('../middlewares/webpack.middleware').default : undefined;
 
+/* istanbul ignore next */
 if (typeof webpackMiddleware === 'function') {
   app.use(webpackMiddleware());
 }
 
-app.use(routes);
+app.get('/api/health', (req, res) => res.status(200).end());
 
-app.all('/api/health', (req, res) => res.status(200).json({ message: 'ok' }));
-
-app.get('*', ssr);
+app.get('*', render);
 
 export default app;

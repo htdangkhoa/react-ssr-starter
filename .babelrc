@@ -21,5 +21,10 @@
       }
     ]
   ],
-  "sourceType": "unambiguous"
+  "sourceType": "unambiguous",
+  "env": {
+    "production": {
+      "plugins": ["transform-react-remove-prop-types"]
+    }
+  }
 }
