@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from 'tests/utils';
-import { TodoList } from '../TodoList';
+import TodoList from '../index';
 
 test('render <TodoList />', async () => {
   render(<TodoList />);

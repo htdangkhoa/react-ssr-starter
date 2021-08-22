@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { render } from 'tests/utils';
-import { TodoInfo } from '../TodoInfo';
+import TodoInfo from '../index';
 
 test('render <TodoInfo />', async () => {
   render(<TodoInfo path='/todo-info/:id' />, { useRouter: true, route: '/todo-info/1' });

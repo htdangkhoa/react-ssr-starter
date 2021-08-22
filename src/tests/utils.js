@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Provider } from 'react-redux';
+import { HelmetProvider } from 'react-helmet-async';
 import { render as rtlRender } from '@testing-library/react';
 import { createHistory, createMemorySource, LocationProvider, Router } from '@reach/router';
 import createStore from 'client/store';
@@ -30,7 +31,11 @@ export const render = (
     );
 
   return {
-    ...rtlRender(<Component>{ui}</Component>),
+    ...rtlRender(
+      <HelmetProvider>
+        <Component>{ui}</Component>
+      </HelmetProvider>,
+    ),
     history,
   };
 };

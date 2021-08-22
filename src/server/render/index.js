@@ -3,10 +3,11 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { ServerLocation, matchPath } from '@reach/router';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
-import { Helmet } from 'react-helmet';
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
+import ssrPrepass from 'react-ssr-prepass';
 
-import { App } from 'client/app';
+import App from 'client/app';
 import createStore from 'client/store';
 import routes from 'client/routes';
 
@@ -41,19 +42,23 @@ const renderController = async (req, res) => {
 
   const extractor = new ChunkExtractor({ statsFile });
 
-  const node = (
+  const helmetContext = {};
+
+  const node = await ssrPrepass(
     <ChunkExtractorManager extractor={extractor}>
       <Provider store={store}>
         <ServerLocation url={req.url}>
-          <App />
+          <HelmetProvider context={helmetContext}>
+            <App />
+          </HelmetProvider>
         </ServerLocation>
       </Provider>
-    </ChunkExtractorManager>
+    </ChunkExtractorManager>,
   );
 
   const markup = renderToString(node);
 
-  const head = Helmet.renderStatic();
+  const { helmet: head } = helmetContext;
 
   const initialState = store.getState();
 

@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 import { ReactComponent as Logo } from 'client/assets/images/logo.svg';
 import styles from './style.module.scss';
 
-const HeaderComponent = () => (
+const Header = () => (
   <Link to='/'>
     <Logo width={70} className={styles.logo} />
 
@@ -12,4 +12,4 @@ const HeaderComponent = () => (
   </Link>
 );
 
-export const Header = memo(HeaderComponent);
+export default memo(Header);
