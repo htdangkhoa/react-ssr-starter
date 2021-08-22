@@ -15,11 +15,11 @@
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
 - React Refresh
 - nodemon
-- [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
+- [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings the Fetch API to Node.js
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
 - loadable-component
 - Webpack Dev Middleware
 - Webpack Hot Middleware
-- ESLint
-- Prettier
-- Integrate Jest with React Testing Library as the solution for writing unit tests with code coverage support.
+- [ESLint](https://eslint.org) - Find and fix problems in your JavaScript code
+- [Prettier](https://prettier.io/) - Format code and style
+- Integrate Jest with Supertest and React Testing Library as the solution for writing unit tests with code coverage support.
