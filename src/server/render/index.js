@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { ServerLocation, matchPath } from '@reach/router';
+import { ServerLocation, matchPath, isRedirect } from '@reach/router';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
@@ -56,7 +56,15 @@ const renderController = async (req, res) => {
     </ChunkExtractorManager>,
   );
 
-  const markup = renderToString(node);
+  let markup;
+
+  try {
+    markup = renderToString(node);
+  } catch (err) {
+    if (isRedirect(err)) {
+      return res.redirect(err.uri);
+    }
+  }
 
   const { helmet: head } = helmetContext;
 
@@ -64,9 +72,10 @@ const renderController = async (req, res) => {
 
   const html = renderHtml(head, extractor, markup, initialState);
 
-  res.header('Content-Type', 'text/html');
-
-  return res.send(html);
+  return res.send(html, {
+    'content-type': 'text/html charset=utf8',
+    'Cache-Control': 'no-store',
+  });
 };
 
 export default renderController;

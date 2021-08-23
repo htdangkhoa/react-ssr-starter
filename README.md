@@ -17,6 +17,7 @@
 - nodemon
 - [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings the Fetch API to Node.js
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
+- [react-helmet-async](https://github.com/staylor/react-helmet-async) - Thread-safe Helmet for React 16+ and friends
 - loadable-component
 - Webpack Dev Middleware
 - Webpack Hot Middleware
