@@ -8,6 +8,8 @@
     "build:frontend": "env-cmd -f .env webpack --config webpack/webpack.config.client.js",
     "build": "npm run build:backend && npm run build:frontend",
     "dev": "env-cmd -f .env webpack --config webpack/webpack.config.server.js",
+    "generate": "plop",
+    "gen": "plop",
     "prepare": "husky install",
     "start": "env-cmd -f .env node build/index.js",
     "test": "env-cmd -f .env.test jest --runInBand"
@@ -70,6 +72,7 @@
     "jest": "^27.0.6",
     "mini-css-extract-plugin": "^2.2.0",
     "node-sass": "^6.0.1",
+    "plop": "^2.7.4",
     "postcss": "^8.3.6",
     "postcss-loader": "^6.1.1",
     "prettier": "^2.3.2",
