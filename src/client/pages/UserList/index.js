@@ -37,7 +37,7 @@ const UserList = () => {
 
   return (
     <div className='container'>
-      <h1>Users List</h1>
+      <h4>User List</h4>
 
       <UserListAsync />
     </div>
