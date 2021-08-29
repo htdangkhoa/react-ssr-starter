@@ -9,9 +9,9 @@ test('render <App />', async () => {
 
   expect(await screen.findByText(/React SSR Starter/i)).toBeInTheDocument();
 
-  await navigate('/todo-info/1');
+  await navigate('/user-info/1');
 
-  expect(await screen.findByText(/Todo Info/i)).toBeInTheDocument();
+  expect(await screen.findByText(/User Info/i)).toBeInTheDocument();
 
   await navigate('/not-found');
 

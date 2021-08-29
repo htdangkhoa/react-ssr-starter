@@ -24,14 +24,14 @@ const request = (url, options) =>
       .catch((err) => reject(err)),
   );
 
-export const getTodos = createAsyncThunk('getTodos', async () => {
-  const res = await request('todos');
+export const getUsers = createAsyncThunk('getUsers', async () => {
+  const res = await request('users');
 
   return res;
 });
 
-export const getTodo = createAsyncThunk('getTodo', async (id) => {
-  const res = await request(`todos/${id}`);
+export const getUser = createAsyncThunk('getUser', async (id) => {
+  const res = await request(`users/${id}`);
 
   return res;
 });

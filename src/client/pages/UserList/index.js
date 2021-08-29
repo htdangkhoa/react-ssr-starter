@@ -4,14 +4,14 @@ import { Link } from '@reach/router';
 
 import Loading from 'client/components/Loading';
 import useIsomorphicLayoutEffect from 'client/hooks/useIsomorphicLayoutEffect';
-import { getTodoListIfNeed } from 'client/store/slices/todo-list-slice';
+import { getUserListIfNeed } from 'client/store/slices/user-list-slice';
 import { STATUS } from 'configs/constants';
 import { makeId } from 'client/utils/string';
 
-export const loadData = () => [getTodoListIfNeed()];
+export const loadData = () => [getUserListIfNeed()];
 
-const TodoListAsync = memo(() => {
-  const { loading, todos } = useSelector((state) => state.todoList);
+const UserListAsync = memo(() => {
+  const { loading, users } = useSelector((state) => state.userList);
 
   if (loading === STATUS.LOADING) return <Loading />;
 
@@ -19,33 +19,29 @@ const TodoListAsync = memo(() => {
 
   return (
     <ul>
-      {todos.map((todo) => (
+      {users.map((user) => (
         <li key={makeId()}>
-          <input id={`todo-${todo.id}`} type='checkbox' disabled checked={todo.completed} />
-
-          <label htmlFor={`todo-${todo.id}`} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-            <Link to={`/todo-info/${todo.id}`}>{todo.title}</Link>
-          </label>
+          <Link to={`/user-info/${user.id}`}>{user.name}</Link>
         </li>
       ))}
     </ul>
   );
 });
 
-const TodoList = () => {
+const UserList = () => {
   const dispatch = useDispatch();
 
   useIsomorphicLayoutEffect(() => {
-    dispatch(getTodoListIfNeed());
+    dispatch(getUserListIfNeed());
   }, []);
 
   return (
     <div className='container'>
-      <h1>Todos</h1>
+      <h1>Users List</h1>
 
-      <TodoListAsync />
+      <UserListAsync />
     </div>
   );
 };
 
-export default memo(TodoList);
+export default memo(UserList);

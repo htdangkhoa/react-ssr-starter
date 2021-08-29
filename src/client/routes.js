@@ -1,21 +1,21 @@
 import { lazy } from 'react';
-import { loadData as loadDataForTodoList } from './pages/TodoList';
-import { loadData as loadDataForTodoInfo } from './pages/TodoInfo';
+import { loadData as loadDataForUserList } from './pages/UserList';
+import { loadData as loadDataForUserInfo } from './pages/UserInfo';
 
-const TodoList = lazy(() => import('./pages/TodoList'));
-const TodoInfo = lazy(() => import('./pages/TodoInfo'));
+const UserList = lazy(() => import('./pages/UserList'));
+const UserInfo = lazy(() => import('./pages/UserInfo'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const routes = [
   {
     path: '/',
-    component: TodoList,
-    loadData: loadDataForTodoList,
+    component: UserList,
+    loadData: loadDataForUserList,
   },
   {
-    path: '/todo-info/:id',
-    component: TodoInfo,
-    loadData: loadDataForTodoInfo,
+    path: '/user-info/:id',
+    component: UserInfo,
+    loadData: loadDataForUserInfo,
   },
   {
     component: NotFound,

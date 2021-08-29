@@ -19,6 +19,7 @@ module.exports = {
     '\\.(css|less|scss|sss|styl)$': '<rootDir>/jest/__mocks__/style-mock.js',
     '\\.module.(css|less|scss|sss|styl)$': 'identity-obj-proxy',
   },
+  modulePathIgnorePatterns: ['<rootDir>/.history'],
   setupFilesAfterEnv: ['<rootDir>/jest/setup-test.js'],
   testEnvironment: 'jsdom',
   transform: {

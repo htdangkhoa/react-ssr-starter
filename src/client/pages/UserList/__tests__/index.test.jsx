@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from 'tests/utils';
-import TodoList from '../index';
+import UserList from '../index';
 
-test('render <TodoList />', async () => {
-  render(<TodoList />);
+test('render <UserList />', async () => {
+  render(<UserList />);
 
   expect(screen.queryByText(/Loading\.\.\./i)).toBeInTheDocument();
 
