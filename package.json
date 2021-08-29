@@ -11,7 +11,7 @@
     "generate": "plop",
     "gen": "plop",
     "prepare": "husky install",
-    "start": "node build/index.js",
+    "start": "node -r dotenv build/index.js",
     "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "autoprefixer": "^10.3.2",
     "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
     "helmet": "^4.6.0",
     "html-minifier": "^4.0.0",
     "node-fetch": "^2.6.1",
