@@ -23,6 +23,7 @@
     "autoprefixer": "^10.3.2",
     "compression": "^1.7.4",
     "env-cmd": "^10.1.0",
+    "helmet": "^4.6.0",
     "html-minifier": "^4.0.0",
     "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
@@ -91,6 +92,6 @@
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0",
     "webpack-pwa-manifest": "^4.3.0",
-    "yarn": "^1.22.11"
+    "workbox-webpack-plugin": "^6.2.4"
   }
 }

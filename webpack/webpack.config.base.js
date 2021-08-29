@@ -168,6 +168,7 @@ exports.baseConfig = (isWeb) => ({
   optimization: {
     minimizer: [
       new TerserPlugin({
+        parallel: true,
         extractComments: true,
         terserOptions: {
           compress: { drop_console: true },

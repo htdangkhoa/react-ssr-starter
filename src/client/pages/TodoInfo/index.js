@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
+import Loading from 'client/components/Loading';
 import useIsomorphicLayoutEffect from 'client/hooks/useIsomorphicLayoutEffect';
 import { getTodoInfoIfNeed } from 'client/store/slices/todo-info-slice';
 import { STATUS } from 'configs/constants';
@@ -10,16 +11,20 @@ import { STATUS } from 'configs/constants';
 export const loadData = ({ params }) => [getTodoInfoIfNeed(params.id)];
 
 const TodoInfoAsync = memo(() => {
-  const { loading, todo } = useSelector((state) => state.todoInfo);
+  const params = useParams();
 
-  if (loading === STATUS.LOADING) return <p>Loading...</p>;
+  const todoInfo = useSelector((state) => state.todoInfo);
 
-  if (loading === STATUS.FAILED) return <p>Oops! Failed to load data.</p>;
+  const todoInfoState = useMemo(() => todoInfo[params.id], [params]);
+
+  if (todoInfoState?.loading === STATUS.LOADING) return <Loading />;
+
+  if (todoInfoState?.loading === STATUS.FAILED) return <p>Oops! Failed to load data.</p>;
 
   return (
     <ul>
-      <li>Title: {todo?.title}</li>
-      <li>Completed: {todo?.completed ? 'true' : 'false'}</li>
+      <li>Title: {todoInfoState?.data?.title}</li>
+      <li>Completed: {todoInfoState?.data?.completed ? 'true' : 'false'}</li>
     </ul>
   );
 });

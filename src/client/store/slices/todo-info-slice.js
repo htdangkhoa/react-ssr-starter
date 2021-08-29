@@ -4,32 +4,36 @@ import { STATUS } from 'configs/constants';
 
 const todoInfoSlice = createSlice({
   name: 'app-slice',
-  initialState: {
-    loading: STATUS.IDLE,
-    todo: null,
-    error: null,
+  initialState: {},
+  reducers: {
+    checkUserExist: (state, { payload }) => {
+      state[payload] = { loading: STATUS.IDLE };
+    },
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getTodo.pending, (state) => {
-        state.loading = STATUS.LOADING;
+      .addCase(getTodo.pending, (state, { meta: { arg } }) => {
+        state[arg].loading = STATUS.LOADING;
       })
-      .addCase(getTodo.rejected, (state, action) => {
-        state.loading = STATUS.FAILED;
-        state.error = action.payload;
+      .addCase(getTodo.rejected, (state, { meta: { arg }, payload }) => {
+        state[arg].loading = STATUS.FAILED;
+        state[arg].error = payload;
       })
-      .addCase(getTodo.fulfilled, (state, action) => {
-        state.loading = STATUS.SUCCEED;
-        state.todo = action.payload;
+      .addCase(getTodo.fulfilled, (state, { meta: { arg }, payload }) => {
+        state[arg].loading = STATUS.SUCCEED;
+        state[arg].data = payload;
       });
   },
 });
 
-const shouldGetTodoInfo = (state) => state.todoInfo.loading === STATUS.IDLE;
+const shouldGetTodoInfo = (state, id) => !Object.values(STATUS).includes(state.todoInfo[id]?.loading);
 
 export const getTodoInfoIfNeed = (id) => (dispatch, getState) => {
-  if (shouldGetTodoInfo(getState())) return dispatch(getTodo(id));
+  if (shouldGetTodoInfo(getState())) {
+    dispatch(todoInfoSlice.actions.checkUserExist(id));
+
+    return dispatch(getTodo(id));
+  }
 
   return null;
 };

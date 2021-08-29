@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from '@reach/router';
 
+import Loading from 'client/components/Loading';
 import useIsomorphicLayoutEffect from 'client/hooks/useIsomorphicLayoutEffect';
 import { getTodoListIfNeed } from 'client/store/slices/todo-list-slice';
 import { STATUS } from 'configs/constants';
@@ -12,7 +13,7 @@ export const loadData = () => [getTodoListIfNeed()];
 const TodoListAsync = memo(() => {
   const { loading, todos } = useSelector((state) => state.todoList);
 
-  if (loading === STATUS.LOADING) return <p>Loading...</p>;
+  if (loading === STATUS.LOADING) return <Loading />;
 
   if (loading === STATUS.FAILED) return <p>Oops! Failed to load data.</p>;
 

@@ -1,6 +1,12 @@
 {
   "icons": [
     {
+      "src": "/icon_512x512.ed37232156de3be98d6844358e2b76d6.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "/icon_512x512.9659e735a83ee3b35defb1bc80775cd4.png",
       "sizes": "512x512",
       "type": "image/png"
@@ -32,5 +38,6 @@
   "display": "standalone",
   "start_url": ".",
   "description": "The best react universal starter boilerplate in the world.",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
 }

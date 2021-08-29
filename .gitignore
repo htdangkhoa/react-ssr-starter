@@ -103,6 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
+# Git history
+.history
+
 build
 
 public/*
@@ -114,3 +117,4 @@ public/*
 !public/ms-icon*
 !public/icon-192x192.png
 !public/icon-512x512.png
+!public/icon-maskable.png
