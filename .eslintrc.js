@@ -23,7 +23,6 @@ module.exports = {
     __CLIENT__: 'readonly',
     __SERVER__: 'readonly',
     __DEV__: 'readonly',
-    __cwd: 'readonly',
   },
   rules: {
     'prettier/prettier': 'error',

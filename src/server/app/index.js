@@ -8,10 +8,10 @@ import render from '../render';
 
 const app = PureHttp();
 
-app.use(favicon(resolve(__cwd, 'public/favicon.ico')));
+app.use(favicon(resolve(process.cwd(), 'public/favicon.ico')));
 app.use(compression());
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(serve(resolve(__cwd, 'public')));
+app.use(serve(resolve(process.cwd(), 'public')));
 
 /* istanbul ignore next */
 const webpackMiddleware = __DEV__ ? require('../middlewares/webpack.middleware').default : undefined;
