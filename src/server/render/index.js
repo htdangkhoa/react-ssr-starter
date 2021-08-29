@@ -38,7 +38,7 @@ const renderController = async (req, res) => {
 
   await loadBranchData();
 
-  const statsFile = resolve(__cwd, 'public/stats.json');
+  const statsFile = resolve(process.cwd(), 'public/stats.json');
 
   const extractor = new ChunkExtractor({ statsFile });
 

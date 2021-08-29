@@ -68,7 +68,6 @@ exports.baseConfig = (isWeb) => ({
       __CLIENT__: isWeb,
       __SERVER__: !isWeb,
       __DEV__: isDev(),
-      __cwd: JSON.stringify(process.cwd()),
     }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
