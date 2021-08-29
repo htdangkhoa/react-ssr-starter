@@ -1,7 +1,7 @@
 <h1 align="center">react-ssr-starter</h1>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/15341301/130331448-556da486-34e6-42ae-bcc5-ea0cf92bbff6.png" alt="banner" >
+  <img src="https://user-images.githubusercontent.com/15341301/131251228-40d7de86-ea0a-4cae-89a3-9a74e7f3b280.png" alt="banner" >
 </p>
 
 ## Features
