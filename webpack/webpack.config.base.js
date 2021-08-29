@@ -5,7 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const isDev = () => process.env.NODE_ENV === 'development';
+const isDev = () => !['production', 'test'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
 
 const getPath = (...args) => resolve(process.cwd(), ...args);

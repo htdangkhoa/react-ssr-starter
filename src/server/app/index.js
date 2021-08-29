@@ -14,8 +14,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(serve(resolve(__cwd, 'public')));
 
 /* istanbul ignore next */
-const webpackMiddleware =
-  process.env.NODE_ENV === 'development' ? require('../middlewares/webpack.middleware').default : undefined;
+const webpackMiddleware = __DEV__ ? require('../middlewares/webpack.middleware').default : undefined;
 
 /* istanbul ignore next */
 if (typeof webpackMiddleware === 'function') {
