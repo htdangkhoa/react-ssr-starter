@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -37,8 +38,12 @@ module.exports = merge(config, {
       short_name: 'React SSR',
       description: 'The best react universal starter boilerplate in the world.',
       background_color: '#ffffff',
-      crossorigin: 'use-credentials',
       filename: 'manifest.json',
+      theme_color: '#ffffff',
+      start_url: '.',
+      display: 'standalone',
+      inject: true,
+      ios: true,
       icons: [
         {
           src: getPath('public/favicon-16x16.png'),
@@ -65,8 +70,36 @@ module.exports = merge(config, {
           size: '512x512',
           type: 'image/png',
         },
+        {
+          src: getPath('public/icon-maskable.png'),
+          size: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
       ],
     }),
+    !isDev() &&
+      new WorkboxWebpackPlugin.GenerateSW({
+        mode: 'production',
+        swDest: 'sw.js',
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
+        runtimeCaching: [
+          {
+            urlPattern: /\.(jpe?g|png|svg|gif|webp)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images',
+            },
+          },
+          {
+            urlPattern: /\.(js|json|css)$/,
+            handler: 'StaleWhileRevalidate',
+            options: { cacheName: 'static-resources' },
+          },
+        ],
+      }),
     isDev() && new webpack.HotModuleReplacementPlugin(),
     isDev() && new ReactRefreshWebpackPlugin(),
     isDev() && new FriendlyErrorsWebpackPlugin(),

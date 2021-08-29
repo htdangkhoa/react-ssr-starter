@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import todoList from './slices/todo-list-slice';
-import todoInfo from './slices/todo-info-slice';
+import userList from './slices/user-list-slice';
+import userInfo from './slices/user-info-slice';
 
 const reducer = combineReducers({
-  todoList,
-  todoInfo,
+  userList,
+  userInfo,
 });
 
 export default reducer;

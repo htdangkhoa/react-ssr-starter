@@ -1,0 +1,12 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+
+import {{properCase name}} from '../index';
+
+test('render <{{properCase name}} />', () => {
+  render(<{{properCase name}} />);
+
+  const div = screen.getByText('{{properCase name}}');
+
+  expect(div).toBeInTheDocument();
+});
