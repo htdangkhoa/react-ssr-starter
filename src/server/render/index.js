@@ -73,7 +73,7 @@ const renderController = async (req, res) => {
   const html = renderHtml(head, extractor, markup, initialState);
 
   return res.send(html, {
-    'content-type': 'text/html charset=utf8',
+    'Content-Type': 'text/html; charset=utf-8',
     'Cache-Control': 'no-store',
   });
 };
