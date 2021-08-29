@@ -11,7 +11,7 @@
     "generate": "plop",
     "gen": "plop",
     "prepare": "husky install",
-    "start": "cross-env NODE_ENV=production node build/index.js",
+    "start": "node build/index.js",
     "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "dependencies": {

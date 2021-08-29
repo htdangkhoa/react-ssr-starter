@@ -1,4 +1,5 @@
 const { merge } = require('webpack-merge');
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const { spawn, execSync } = require('child_process');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
@@ -23,6 +24,9 @@ module.exports = merge(baseConfig(false), {
     }),
   ],
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
     isDev() && {
       apply(compiler) {
         compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
