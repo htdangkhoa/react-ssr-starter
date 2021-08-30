@@ -1,7 +1,8 @@
 import { resolve } from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { ServerLocation, matchPath, isRedirect } from '@reach/router';
+import { ServerLocation, isRedirect } from '@reach/router';
+import { match as matchPath } from '@reach/router/lib/utils';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
@@ -16,11 +17,16 @@ import renderHtml from './render-html';
 const renderController = async (req, res) => {
   const store = createStore();
 
+  const statuses = [];
+
   const loadBranchData = () => {
     const promises = routes
       .filter((route) => !!route.path)
       .map((route) => {
         const matched = matchPath(route.path, req.path);
+
+        // eslint-disable-next-line no-extra-boolean-cast
+        statuses.push(!!matched ? 200 : null);
 
         if (matched && typeof route.loadData === 'function') {
           const thunks = route
@@ -72,7 +78,9 @@ const renderController = async (req, res) => {
 
   const html = renderHtml(head, extractor, markup, initialState);
 
-  return res.send(html, {
+  const status = statuses.filter(Boolean).length === 0 ? 404 : 200;
+
+  return res.send(html, status, {
     'Content-Type': 'text/html; charset=utf-8',
     'Cache-Control': 'no-store',
   });
