@@ -18,4 +18,10 @@ describe('server side rendering', () => {
       await request.get('/todo-info/1').expect('content-type', /text\/html/i);
     });
   });
+
+  describe('GET /page-not-found', () => {
+    it('should render html', async () => {
+      await request.get('/page-not-found').expect(404);
+    });
+  });
 });
