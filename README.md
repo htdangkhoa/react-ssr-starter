@@ -26,6 +26,20 @@
   </a>
 </p>
 
+## Requirements
+
+- [node >= 12](https://nodejs.org/en/download/)
+
+## Getting Started
+
+```sh
+git clone https://github.com/htdangkhoa/react-ssr-starter
+
+yarn install # or npm install
+
+yarn dev # or npm run dev
+```
+
 ## Features
 
 - [React](https://reactjs.org) - A JavaScript library for building user interfaces
@@ -35,14 +49,25 @@
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies
 - [Webpack](https://webpack.js.org) - App bundling
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
-- React Refresh
-- nodemon
+- [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
 - [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings the Fetch API to Node.js
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
 - [react-helmet-async](https://github.com/staylor/react-helmet-async) - Thread-safe Helmet for React 16+ and friends
-- loadable-component
-- Webpack Dev Middleware
-- Webpack Hot Middleware
+- [loadable-component](https://github.com/gregberge/loadable-components) - The recommended Code Splitting library for React
+- [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware) - Serves the files emitted from webpack over the Express server
+- [Webpack Hot Middleware](https://github.com/webpack-contrib/webpack-hot-middleware) - Allows you to add hot reloading into the Express server
 - [ESLint](https://eslint.org) - Find and fix problems in your JavaScript code
 - [Prettier](https://prettier.io/) - Format code and style
-- Integrate Jest with Supertest and React Testing Library as the solution for writing unit tests with code coverage support.
+- Integrate [Jest](https://jestjs.io/) with [Supertest](https://github.com/visionmedia/supertest) and [React Testing Library](https://github.com/testing-library/react-testing-library) as the solution for writing unit tests with code coverage support.
+
+## Scripts
+
+| Script              | Description                                                                       |
+| ------------------- | --------------------------------------------------------------------------------- |
+| `dev`               | Runs your app on the development server at `localhost:9090`. HMR will be enabled. |
+| `build`             | Bundles both server-side and client-side files.                                   |
+| `build:server`      | Bundles server-side files in production mode and put it to the `build`.           |
+| `build:client`      | Bundles client-side files in production mode and put it to the `public`.          |
+| `start`             | Runs your app after bundled.                                                      |
+| `gen` or `generate` | Generate React component automatic based on template.                             |
+| `test`              | Runs testing.                                                                     |

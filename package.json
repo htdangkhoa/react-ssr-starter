@@ -4,9 +4,9 @@
   "license": "MIT",
   "main": "build/index.js",
   "scripts": {
-    "build:backend": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js",
-    "build:frontend": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js",
-    "build": "npm run build:backend && npm run build:frontend",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js",
+    "build": "npm run build:server && npm run build:client",
     "dev": "cross-env NODE_ENV=development webpack --config webpack/webpack.config.server.js",
     "generate": "plop",
     "gen": "plop",
