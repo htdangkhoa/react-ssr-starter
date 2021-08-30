@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from 'tests/utils';
+import { render, screen } from 'test-utils/render';
 import UserList from '../index';
 
 test('render <UserList />', async () => {

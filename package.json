@@ -12,8 +12,8 @@
     "gen": "plop",
     "prepare": "husky install",
     "start": "node -r dotenv build/index.js",
-    "pretest": "npm run build",
-    "test": "cross-env NODE_ENV=test jest --runInBand"
+    "pretest": "node scripts/pretest.js",
+    "test": "cross-env NODE_ENV=test jest --config jest/config.js --runInBand"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
