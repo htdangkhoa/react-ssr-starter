@@ -12,6 +12,7 @@
     "gen": "plop",
     "prepare": "husky install",
     "start": "node -r dotenv build/index.js",
+    "pretest": "npm run build",
     "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "dependencies": {
