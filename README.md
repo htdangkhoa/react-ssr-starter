@@ -4,6 +4,28 @@
   <img src="https://user-images.githubusercontent.com/15341301/131251228-40d7de86-ea0a-4cae-89a3-9a74e7f3b280.png" alt="banner" >
 </p>
 
+<p align='center'>
+  <a href='https://depfu.com/github/htdangkhoa/react-ssr-starter?project_id=30809'>
+    <img src='https://badges.depfu.com/badges/f269ac566de71c1081d497d42daec0d6/count.svg' alt='Depfu' />
+  </a>
+
+  <a href='https://github.com/htdangkhoa/react-ssr-starter/actions/workflows/ci.yml'>
+    <img src='https://github.com/htdangkhoa/react-ssr-starter/actions/workflows/ci.yml/badge.svg' alt='CI' />
+  </a>
+
+  <a href="https://www.codefactor.io/repository/github/htdangkhoa/react-ssr-starter">
+    <img src="https://www.codefactor.io/repository/github/htdangkhoa/react-ssr-starter/badge" alt="CodeFactor" />
+  </a>
+
+  <a href='https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base'>
+    <img src='https://img.shields.io/badge/eslint-airbnb-4B32C3.svg' alt='Eslint: airbnb' />
+  </a>
+
+  <a href='https://github.com/prettier/prettier'>
+    <img src='https://img.shields.io/badge/code_style-prettier-ff69b4.svg' alt='Formatter: prettier' />
+  </a>
+</p>
+
 ## Features
 
 - [React](https://reactjs.org) - A JavaScript library for building user interfaces
