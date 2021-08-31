@@ -9,6 +9,9 @@ module.exports = merge(baseConfig(false), {
   entry: mergeBaseEntry(getPath('src/server/index.js')),
   target: 'node',
   watch: isDev(),
+  watchOptions: {
+    ignored: [getPath('src/client'), getPath('src/test-utils')],
+  },
   output: {
     path: getPath('build'),
     filename: 'index.js',
