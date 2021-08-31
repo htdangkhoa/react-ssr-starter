@@ -1,7 +1,37 @@
 {
   "name": "react-ssr-starter",
   "version": "0.0.1",
+  "description": "A React boilerplate for a universal web app with a highly scalable, offline-first foundation and our focus on performance and best practices.",
+  "keywords": [
+    "react",
+    "redux",
+    "unit-testing",
+    "boilerplate",
+    "performance",
+    "webpack",
+    "universal",
+    "es6+",
+    "jest",
+    "seo",
+    "ssr",
+    "server-side-rendering",
+    "supertest",
+    "@reach/router",
+    "react-hooks",
+    "redux-toolkit",
+    "react-testing-library",
+    "offline-first",
+    "pwa",
+    "best-practices",
+    "eslint",
+    "prettier",
+    "babel"
+  ],
+  "homepage": "https://github.com/htdangkhoa/react-ssr-starter",
+  "bugs": "https://github.com/htdangkhoa/react-ssr-starter/issues",
+  "repository": "https://github.com/htdangkhoa/react-ssr-starter",
   "license": "MIT",
+  "author": "Khoa Huynh <huynhtran.dangkhoa@gmail.com> (https://github.com/htdangkhoa)",
   "main": "build/index.js",
   "scripts": {
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js",
@@ -97,5 +127,8 @@
     "webpack-node-externals": "^3.0.0",
     "webpack-pwa-manifest": "^4.3.0",
     "workbox-webpack-plugin": "^6.2.4"
+  },
+  "engines": {
+    "node": ">= 12.x"
   }
 }
