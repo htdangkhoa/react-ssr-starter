@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToNodeStream } from 'react-dom/server';
 import { ServerLocation, isRedirect } from '@reach/router';
 import { match as matchPath } from '@reach/router/lib/utils';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
@@ -62,28 +62,37 @@ const renderController = async (req, res) => {
     </ChunkExtractorManager>,
   );
 
-  let markup;
-
   try {
-    markup = renderToString(node);
+    const body = [];
+
+    return renderToNodeStream(node)
+      .on('data', (chunk) => body.push(chunk.toString()))
+      .on('error', (error) => res.status(404).send(error.message))
+      .on('end', () => {
+        const htmlContent = body.join('');
+
+        const { helmet: head } = helmetContext;
+
+        const initialState = store.getState();
+
+        const html = renderHtml(head, extractor, htmlContent, initialState);
+
+        const status = statuses.filter(Boolean).length === 0 ? 404 : 200;
+
+        return res.send(html, status, {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-store',
+        });
+      });
   } catch (err) {
     if (isRedirect(err)) {
       return res.redirect(err.uri);
     }
+
+    console.error(`==> 😭  Rendering routes error: ${err}`);
+
+    return res.status(404).send('Not Found :(');
   }
-
-  const { helmet: head } = helmetContext;
-
-  const initialState = store.getState();
-
-  const html = renderHtml(head, extractor, markup, initialState);
-
-  const status = statuses.filter(Boolean).length === 0 ? 404 : 200;
-
-  return res.send(html, status, {
-    'Content-Type': 'text/html; charset=utf-8',
-    'Cache-Control': 'no-store',
-  });
 };
 
 export default renderController;
