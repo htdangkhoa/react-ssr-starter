@@ -47,6 +47,7 @@ yarn dev # or npm run dev
 - [Redux Toolkit](https://redux-toolkit.js.org) - The official, opinionated, batteries-included toolset for efficient Redux development
 - [Reach Router](https://reach.tech/router) - A small, simple router for React that borrows from React Router
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies
+- [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
 - [Webpack](https://webpack.js.org) - App bundling
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
@@ -71,3 +72,37 @@ yarn dev # or npm run dev
 | `start`             | Runs your app after bundled.                                                      |
 | `gen` or `generate` | Generate React component automatic based on template.                             |
 | `test`              | Runs testing.                                                                     |
+
+## Generators
+
+#### Usage
+
+- npm
+
+  ```sh
+  npm run gen component "<component_name>"
+
+  npm run generate component "<component_name>"
+  ```
+
+- Yarn
+
+  ```sh
+  yarn gen component "<component_name>"
+
+  yarn generate component "<component_name>"
+  ```
+
+#### Example
+
+```sh
+yarn gen component "hello world"
+
+# or npm run gen component "hello world"
+```
+
+Output: `/src/client/components/HelloWorld/index.jsx` will be generated. `/src/client/components/HelloWorld/__tests__/index.test.jsx` will be generated if you want add the unit testing.
+
+#### Custom
+
+You can add template in `generators` directory, please read more at [plopjs](https://github.com/plopjs/plop).
