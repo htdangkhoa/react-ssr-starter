@@ -47,7 +47,6 @@ yarn dev # or npm run dev
 - [Redux Toolkit](https://redux-toolkit.js.org) - The official, opinionated, batteries-included toolset for efficient Redux development
 - [Reach Router](https://reach.tech/router) - A small, simple router for React that borrows from React Router
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies
-- [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env for nodejs projects
 - [Webpack](https://webpack.js.org) - App bundling
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
@@ -55,6 +54,7 @@ yarn dev # or npm run dev
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
 - [react-helmet-async](https://github.com/staylor/react-helmet-async) - Thread-safe Helmet for React 16+ and friends
 - [loadable-component](https://github.com/gregberge/loadable-components) - The recommended Code Splitting library for React
+- [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack) - A secure webpack plugin that supports dotenv and other environment variables and only exposes what you choose and use
 - [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware) - Serves the files emitted from webpack over the Express server
 - [Webpack Hot Middleware](https://github.com/webpack-contrib/webpack-hot-middleware) - Allows you to add hot reloading into the Express server
 - [ESLint](https://eslint.org) - Find and fix problems in your JavaScript code
