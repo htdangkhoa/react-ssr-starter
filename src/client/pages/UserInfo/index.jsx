@@ -44,7 +44,7 @@ const UserInfo = () => {
     <div className='container'>
       <Helmet title='User Info' />
 
-      <h4>User Info</h4>
+      <h1>User Info</h1>
 
       <UserInfoAsync />
     </div>
