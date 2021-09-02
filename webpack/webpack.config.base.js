@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
+const DotenvWebpack = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -69,6 +70,7 @@ exports.baseConfig = (isWeb) => ({
       __SERVER__: !isWeb,
       __DEV__: isDev(),
     }),
+    new DotenvWebpack(),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         '**/*',

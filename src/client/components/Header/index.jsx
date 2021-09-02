@@ -8,7 +8,7 @@ const Header = () => (
   <Link to='/'>
     <Logo width={70} className={styles.logo} />
 
-    <h1>React SSR Starter</h1>
+    <h1 className={styles.h1}>React SSR Starter</h1>
   </Link>
 );
 
