@@ -1,4 +1,4 @@
-export default {
+const appConfig = {
   baseUrl: 'https://jsonplaceholder.typicode.com/',
   seo: {
     htmlAttributes: { lang: 'en' },
@@ -12,3 +12,5 @@ export default {
     ],
   },
 };
+
+export default appConfig;
