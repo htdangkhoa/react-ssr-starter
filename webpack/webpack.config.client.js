@@ -38,7 +38,7 @@ module.exports = merge(config, {
       short_name: 'React SSR',
       description: 'The best react universal starter boilerplate in the world.',
       background_color: '#ffffff',
-      filename: 'manifest.json',
+      filename: 'site.webmanifest',
       theme_color: '#ffffff',
       start_url: '.',
       display: 'standalone',
