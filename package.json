@@ -117,7 +117,7 @@
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
     "supertest": "^6.1.6",
-    "terser-webpack-plugin": "^5.2.2",
+    "terser-webpack-plugin": "^5.2.3",
     "webpack": "^5.51.2",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.2",
