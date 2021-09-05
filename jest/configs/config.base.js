@@ -1,15 +1,10 @@
-/*
- * For a detailed explanation regarding each configuration property, visit:
- * https://jestjs.io/docs/configuration
- */
-
-module.exports = {
-  rootDir: '../',
+module.exports = (isWeb) => ({
+  rootDir: process.cwd(),
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'lcov'],
   globals: {
-    __SERVER__: true,
+    __SERVER__: !isWeb,
     __DEV__: false,
   },
   moduleNameMapper: {
@@ -21,8 +16,8 @@ module.exports = {
   },
   modulePathIgnorePatterns: ['<rootDir>/.history'],
   setupFilesAfterEnv: ['<rootDir>/jest/setup-test.js'],
-  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(jsx?)$': 'babel-jest',
   },
-};
+  testTimeout: 120000,
+});
