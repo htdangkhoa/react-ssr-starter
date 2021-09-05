@@ -1,11 +1,7 @@
-import nFetch from 'node-fetch';
+import 'isomorphic-fetch';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import appConfig from 'configs/app';
-
-if (!globalThis.fetch) {
-  globalThis.fetch = nFetch;
-}
 
 const request = (url, options) =>
   new Promise((resolve, reject) =>

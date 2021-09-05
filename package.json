@@ -34,6 +34,8 @@
   "author": "Khoa Huynh <huynhtran.dangkhoa@gmail.com> (https://github.com/htdangkhoa)",
   "main": "build/index.js",
   "scripts": {
+    "analyze:server": "cross-env NODE_ENV=analyze webpack --config webpack/webpack.config.server.js",
+    "analyze:client": "cross-env NODE_ENV=analyze webpack --config webpack/webpack.config.client.js",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.server.js",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.client.js",
     "build": "npm run build:server && npm run build:client",
@@ -57,7 +59,7 @@
     "compression": "^1.7.4",
     "helmet": "^4.6.0",
     "html-minifier": "^4.0.0",
-    "node-fetch": "^2.6.1",
+    "isomorphic-fetch": "^3.0.0",
     "prop-types": "^15.7.2",
     "pure-http": "^3.3.0",
     "react": "^17.0.2",
