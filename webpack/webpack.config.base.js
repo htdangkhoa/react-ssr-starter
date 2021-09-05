@@ -5,8 +5,9 @@ const DotenvWebpack = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const isDev = () => !['production', 'test'].includes(process.env.NODE_ENV);
+const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
 
 const getPath = (...args) => resolve(process.cwd(), ...args);
@@ -82,6 +83,9 @@ exports.baseConfig = (isWeb) => ({
         '!ms-icon*',
         '!icon-*.png',
       ],
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
     }),
   ].filter(Boolean),
   module: {

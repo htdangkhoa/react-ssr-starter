@@ -67,17 +67,17 @@
     semver "^6.3.0"
     source-map "^0.5.0"
 
-"@babel/core@^7.15.4":
-  version "7.15.4"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.15.4.tgz#a70d06c58ae1fce39c23f8efd79f9d5eb8b2f397"
-  integrity sha512-Lkcv9I4a8bgUI8LJOLM6IKv6hnz1KOju6KM1lceqVMKlKKqNRopYd2Pc9MgIurqvMJ6BooemrnJz8jlIiQIpsA==
+"@babel/core@^7.15.5":
+  version "7.15.5"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.15.5.tgz#f8ed9ace730722544609f90c9bb49162dc3bf5b9"
+  integrity sha512-pYgXxiwAgQpgM1bNkZsDEq85f0ggXMA5L7c+o3tskGMh2BunCI9QUwB9Z4jpvXUOuMdyGKiGKQiRe11VS6Jzvg==
   dependencies:
     "@babel/code-frame" "^7.14.5"
     "@babel/generator" "^7.15.4"
     "@babel/helper-compilation-targets" "^7.15.4"
     "@babel/helper-module-transforms" "^7.15.4"
     "@babel/helpers" "^7.15.4"
-    "@babel/parser" "^7.15.4"
+    "@babel/parser" "^7.15.5"
     "@babel/template" "^7.15.4"
     "@babel/traverse" "^7.15.4"
     "@babel/types" "^7.15.4"
@@ -480,6 +480,11 @@
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.15.4.tgz#02f2931b822512d3aad17d475ae83da74a255a84"
   integrity sha512-xmzz+7fRpjrvDUj+GV7zfz/R3gSK2cOxGlazaXooxspCr539cbTXJKvBJzSVI2pPhcRGquoOtaIkKCsHQUiO3w==
+
+"@babel/parser@^7.15.5":
+  version "7.15.5"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.15.5.tgz#d33a58ca69facc05b26adfe4abebfed56c1c2dac"
+  integrity sha512-2hQstc6I7T6tQsWzlboMh3SgMRPaS4H6H7cPQsJkdzTzEGqQrpLDsE2BGASU5sBPoEQyHzeqU6C8uKbFeEk6sg==
 
 "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@^7.14.5":
   version "7.14.5"
@@ -5985,6 +5990,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+isomorphic-fetch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-3.0.0.tgz#0267b005049046d2421207215d45d6a262b8b8b4"
+  integrity sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==
+  dependencies:
+    node-fetch "^2.6.1"
+    whatwg-fetch "^3.4.1"
+
 istanbul-lib-coverage@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
@@ -8077,10 +8090,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-redux@^7.2.4:
-  version "7.2.4"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
-  integrity sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==
+react-redux@^7.2.5:
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.5.tgz#213c1b05aa1187d9c940ddfc0b29450957f6a3b8"
+  integrity sha512-Dt29bNyBsbQaysp6s/dN0gUodcq+dVKKER8Qv82UrpeygwYeX1raTtil7O/fftw/rFqzaf6gJhDZRkkZnn6bjg==
   dependencies:
     "@babel/runtime" "^7.12.1"
     "@types/react-redux" "^7.1.16"
@@ -9231,10 +9244,10 @@ terser-webpack-plugin@^5.1.3:
     source-map "^0.6.1"
     terser "^5.7.0"
 
-terser-webpack-plugin@^5.2.2:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.2.2.tgz#d7fd08109d47b8d4ec7dbfeee6b18fe1a9142d8c"
-  integrity sha512-/SNcbgI4Igd0E02R6HY7BnKkQBfAdV6BHcYYXk++QrGXpQoayMt79eaOtTrghtdRoDL5w3hgyMh+AippkuOEFg==
+terser-webpack-plugin@^5.2.3:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.2.3.tgz#4852c91f709a4ea2bcf324cf48e7e88124cda0cc"
+  integrity sha512-eDbuaDlXhVaaoKuLD3DTNTozKqln6xOG6Us0SzlKG5tNlazG+/cdl8pm9qiF1Di89iWScTI0HcO+CDcf2dkXiw==
   dependencies:
     jest-worker "^27.0.6"
     p-limit "^3.1.0"
@@ -9850,10 +9863,10 @@ webpack-sources@^3.2.0:
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.2.0.tgz#b16973bcf844ebcdb3afde32eda1c04d0b90f89d"
   integrity sha512-fahN08Et7P9trej8xz/Z7eRu8ltyiygEo/hnRi9KqBUs80KeDcnf96ZJo++ewWd84fEf3xSX9bp4ZS9hbw0OBw==
 
-webpack@^5.51.2:
-  version "5.51.2"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.51.2.tgz#f765d258b0bf6abda3c5f21bf855a25720e9796f"
-  integrity sha512-odydxP4WA3XYYzwSQUivPxywdzMlY42bbfxMwCaEtHb+i/N9uzKSHcLgWkXo/Gsa+4Zlzf3Jg0hEHn1FnZpk2Q==
+webpack@^5.52.0:
+  version "5.52.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.52.0.tgz#88d997c2c3ebb62abcaa453d2a26e0fd917c71a3"
+  integrity sha512-yRZOat8jWGwBwHpco3uKQhVU7HYaNunZiJ4AkAVQkPCUGoZk/tiIXiwG+8HIy/F+qsiZvSOa+GLQOj3q5RKRYg==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.50"
@@ -9900,6 +9913,11 @@ whatwg-encoding@^1.0.5:
   integrity sha512-b5lim54JOPN9HtzvK9HFXvBma/rnfFeqsic0hSpjtDbVxR3dJKLc+KB4V6GgiGOvl7CY/KNh8rxSo9DKQrnUEw==
   dependencies:
     iconv-lite "0.4.24"
+
+whatwg-fetch@^3.4.1:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
+  integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==
 
 whatwg-mimetype@^2.3.0:
   version "2.3.0"
