@@ -16,7 +16,11 @@ delete window.__INITIAL_STATE__;
 const store = createStore({ initialState });
 
 const render = () => {
-  ReactDOM.hydrate(
+  const container = document.getElementById('app');
+
+  const root = ReactDOM.createRoot(container);
+
+  root.render(
     <StrictMode>
       <Provider store={store}>
         <HelmetProvider>
@@ -24,7 +28,7 @@ const render = () => {
         </HelmetProvider>
       </Provider>
     </StrictMode>,
-    document.getElementById('app'),
+    { hydrate: __SERVER__ },
   );
 };
 

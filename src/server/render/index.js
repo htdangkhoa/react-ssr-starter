@@ -6,7 +6,7 @@ import { match as matchPath } from '@reach/router/lib/utils';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
-import ssrPrepass from 'react-ssr-prepass';
+// import ssrPrepass from 'react-ssr-prepass';
 
 import App from 'client/app';
 import createStore from 'client/store';
@@ -50,22 +50,20 @@ const renderController = async (req, res) => {
 
   const helmetContext = {};
 
-  const node = await ssrPrepass(
-    <ChunkExtractorManager extractor={extractor}>
-      <Provider store={store}>
-        <ServerLocation url={req.url}>
-          <HelmetProvider context={helmetContext}>
-            <App />
-          </HelmetProvider>
-        </ServerLocation>
-      </Provider>
-    </ChunkExtractorManager>,
-  );
-
   let markup;
 
   try {
-    markup = renderToString(node);
+    markup = renderToString(
+      <ChunkExtractorManager extractor={extractor}>
+        <Provider store={store}>
+          <ServerLocation url={req.url}>
+            <HelmetProvider context={helmetContext}>
+              <App />
+            </HelmetProvider>
+          </ServerLocation>
+        </Provider>
+      </ChunkExtractorManager>,
+    );
   } catch (err) {
     if (isRedirect(err)) {
       return res.redirect(err.uri);

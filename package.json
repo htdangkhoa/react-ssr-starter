@@ -62,11 +62,10 @@
     "isomorphic-fetch": "^3.0.0",
     "prop-types": "^15.7.2",
     "pure-http": "^3.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0-alpha-95d762e40-20210908",
+    "react-dom": "^18.0.0-alpha-95d762e40-20210908",
     "react-helmet-async": "^1.0.9",
     "react-redux": "^7.2.5",
-    "react-ssr-prepass": "^1.4.0",
     "serialize-javascript": "^6.0.0",
     "serve-favicon": "^2.5.0",
     "serve-static": "^1.14.1"
