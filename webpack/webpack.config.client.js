@@ -128,6 +128,19 @@ module.exports = merge(config, {
     ],
     splitChunks: {
       chunks: 'all',
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
     },
     runtimeChunk: {
       name: (entrypoint) => `runtime-${entrypoint.name}`,

@@ -1,0 +1,10 @@
+{
+  "*.{js,jsx}": [
+    "eslint --fix",
+    "git add ."
+  ],
+  "**/*": [
+    "prettier -w -u",
+    "git add ."
+  ]
+}
