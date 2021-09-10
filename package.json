@@ -45,9 +45,7 @@
     "prepare": "husky install",
     "start": "node build/index.js",
     "pretest": "node scripts/pretest.js",
-    "test": "cross-env NODE_ENV=test jest --runInBand",
-    "lint": "eslint --fix *.js src/**/*.{js,jsx} src/**/**/*.{js,jsx}",
-    "prettier": "prettier --write \"{**/*,*}.scss\""
+    "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",
