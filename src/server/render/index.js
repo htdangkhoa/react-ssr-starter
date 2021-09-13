@@ -6,7 +6,6 @@ import { match as matchPath } from '@reach/router/lib/utils';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
-// import ssrPrepass from 'react-ssr-prepass';
 
 import App from 'client/app';
 import createStore from 'client/store';

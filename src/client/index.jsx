@@ -18,18 +18,25 @@ const store = createStore({ initialState });
 const render = () => {
   const container = document.getElementById('app');
 
-  const root = ReactDOM.createRoot(container);
-
-  root.render(
+  const children = (
     <StrictMode>
       <Provider store={store}>
         <HelmetProvider>
           <App />
         </HelmetProvider>
       </Provider>
-    </StrictMode>,
-    { hydrate: __SERVER__ },
+    </StrictMode>
   );
+
+  if (__SERVER__) {
+    ReactDOM.hydrateRoot(container, children);
+
+    return;
+  }
+
+  const root = ReactDOM.createRoot(container);
+
+  root.render(children);
 };
 
 loadableReady(render);
