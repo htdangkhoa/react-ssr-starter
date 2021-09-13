@@ -71,8 +71,11 @@ yarn dev # or npm run dev
 | `build:server`      | Bundles server-side files in production mode and put it to the `build`.           |
 | `build:client`      | Bundles client-side files in production mode and put it to the `public`.          |
 | `start`             | Runs your app after bundled.                                                      |
-| `gen` or `generate` | Generate React component automatic based on template.                             |
 | `test`              | Runs testing.                                                                     |
+| `docker`            | Builds then run docker.                                                           |
+| `docker:build`      | Builds docker.                                                                    |
+| `docker:run`        | Runs docker.                                                                      |
+| `gen` or `generate` | Generate React component automatic based on template.                             |
 
 ## Generators
 
