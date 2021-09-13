@@ -20,7 +20,6 @@ module.exports = merge(baseConfig(false), {
   },
   node: { __dirname: true, __filename: true },
   externals: [
-    '@loadable/component',
     nodeExternals({
       allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
     }),
