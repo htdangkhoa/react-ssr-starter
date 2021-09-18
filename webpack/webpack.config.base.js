@@ -174,7 +174,7 @@ exports.baseConfig = (isWeb) => ({
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        extractComments: !isWeb,
+        extractComments: false,
         terserOptions: {
           compress: { drop_console: true },
         },
