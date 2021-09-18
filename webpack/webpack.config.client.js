@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
 
 const config = baseConfig(true);
@@ -123,6 +124,16 @@ module.exports = merge(config, {
             comments: false,
             ascii_only: true,
           },
+        },
+      }),
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
         },
       }),
     ],
