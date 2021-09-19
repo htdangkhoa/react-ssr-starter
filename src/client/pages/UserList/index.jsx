@@ -11,11 +11,20 @@ import { makeId } from 'client/utils/string';
 export const loadData = () => [getUserListIfNeed()];
 
 const UserListAsync = memo(() => {
-  const { loading, users } = useSelector((state) => state.userList);
+  const { loading, error, users } = useSelector((state) => state.userList);
 
   if (loading === STATUS.LOADING) return <Loading />;
 
-  if (loading === STATUS.FAILED) return <p>Oops! Failed to load data.</p>;
+  if (loading === STATUS.FAILED)
+    return (
+      <div>
+        <h2>Oops! Failed to load data.</h2>
+
+        <p>Message: {error?.message}</p>
+
+        <p>Stack: {error?.stack}</p>
+      </div>
+    );
 
   return (
     <ul>
