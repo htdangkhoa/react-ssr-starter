@@ -15,9 +15,9 @@ const userInfoSlice = createSlice({
       .addCase(getUser.pending, (state, { meta: { arg } }) => {
         state[arg].loading = STATUS.LOADING;
       })
-      .addCase(getUser.rejected, (state, { meta: { arg }, payload }) => {
+      .addCase(getUser.rejected, (state, { meta: { arg }, error }) => {
         state[arg].loading = STATUS.FAILED;
-        state[arg].error = payload;
+        state.error = error;
       })
       .addCase(getUser.fulfilled, (state, { meta: { arg }, payload }) => {
         state[arg].loading = STATUS.SUCCEED;

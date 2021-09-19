@@ -17,7 +17,7 @@ const userListSlice = createSlice({
       })
       .addCase(getUsers.rejected, (state, action) => {
         state.loading = STATUS.FAILED;
-        state.error = action.payload;
+        state.error = action.error;
       })
       .addCase(getUsers.fulfilled, (state, action) => {
         state.loading = STATUS.SUCCEED;

@@ -19,7 +19,16 @@ const UserInfoAsync = memo(() => {
 
   if (userInfoState?.loading === STATUS.LOADING) return <Loading />;
 
-  if (userInfoState?.loading === STATUS.FAILED) return <p>Oops! Failed to load data.</p>;
+  if (userInfoState?.loading === STATUS.FAILED)
+    return (
+      <div>
+        <h2>Oops! Failed to load data.</h2>
+
+        <p>Message: {userInfoState?.error?.message}</p>
+
+        <p>Stack: {userInfoState?.error?.stack}</p>
+      </div>
+    );
 
   return (
     <ul>
