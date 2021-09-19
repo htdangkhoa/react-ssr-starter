@@ -51,7 +51,7 @@ yarn dev # or npm run dev
 - [Webpack](https://webpack.js.org) - App bundling
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
-- [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings the Fetch API to Node.js
+- [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
 - [react-helmet-async](https://github.com/staylor/react-helmet-async) - Thread-safe Helmet for React 16+ and friends
 - [loadable-component](https://github.com/gregberge/loadable-components) - The recommended Code Splitting library for React
@@ -71,8 +71,11 @@ yarn dev # or npm run dev
 | `build:server`      | Bundles server-side files in production mode and put it to the `build`.           |
 | `build:client`      | Bundles client-side files in production mode and put it to the `public`.          |
 | `start`             | Runs your app after bundled.                                                      |
-| `gen` or `generate` | Generate React component automatic based on template.                             |
 | `test`              | Runs testing.                                                                     |
+| `docker`            | Builds then run docker.                                                           |
+| `docker:build`      | Builds docker.                                                                    |
+| `docker:run`        | Runs docker.                                                                      |
+| `gen` or `generate` | Generate React component automatic based on template.                             |
 
 ## Generators
 

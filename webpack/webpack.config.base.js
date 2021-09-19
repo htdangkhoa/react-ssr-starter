@@ -61,7 +61,7 @@ const getStyleLoaders = (isWeb, isModule) => {
 
 exports.baseConfig = (isWeb) => ({
   mode: isDev() ? 'development' : 'production',
-  devtool: isDev() ? 'source-map' : false,
+  devtool: isDev() ? 'cheap-module-source-map' : false,
   stats: 'minimal',
   output: { clean: !isWeb },
   plugins: [
@@ -174,7 +174,7 @@ exports.baseConfig = (isWeb) => ({
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        extractComments: true,
+        extractComments: false,
         terserOptions: {
           compress: { drop_console: true },
         },
