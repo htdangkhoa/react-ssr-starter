@@ -118,7 +118,7 @@
     "prettier": "^2.4.1",
     "react-refresh": "^0.10.0",
     "remove": "^0.1.5",
-    "sass": "^1.41.1",
+    "sass": "^1.42.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
     "supertest": "^6.1.6",
