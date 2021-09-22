@@ -3196,10 +3196,10 @@ colorette@^1.2.1, colorette@^1.2.2, colorette@^1.3.0, colorette@^1.4.0:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.4.0.tgz#5190fbb87276259a86ad700bff2c6d6faa3fca40"
   integrity sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==
 
-colorette@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.5.tgz#e9257d0a938e2340d3d4942bde308b1016721c84"
-  integrity sha512-rPmg56Y2iDrBBoQN9A8TwkXpIKtk0dWo2PZvIK1AcY6SLdIbgg0mtLm+o0MQFHZhiMQ6cVgL+wkTEO9XPPM4Wg==
+colorette@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.7.tgz#0173393a8f1045c3b66fc8201036ef38ed0d1e7e"
+  integrity sha512-wSXeeDPxoi5xKvjvOGxyYlyqB3J+tbowaSsFm1rEsDsDE942aTLftbOE3XMqf3XaYC7QUtcd/3qadNAIEIsAYw==
 
 combined-stream@^1.0.8:
   version "1.0.8"
