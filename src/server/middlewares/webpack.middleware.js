@@ -4,7 +4,7 @@ import os from 'os';
 import webpack from 'webpack';
 import whm from 'webpack-hot-middleware';
 import wdm from 'webpack-dev-middleware';
-import chalk from 'chalk';
+import { green, bold, blue } from 'colorette';
 
 import serverConfig from 'configs/server';
 import config from '~/webpack/webpack.config.client';
@@ -27,12 +27,12 @@ const webpackMiddleware = () => {
 
     console.clear();
 
-    console.log(chalk.green('Compiled successfully!\n'));
-    console.log(`You can now view ${chalk.bold('app')} in the browser.\n`);
-    console.log(`  ${chalk.bold('Local:')}\t\thttp://localhost:${chalk.bold(serverConfig.PORT)}`);
-    console.log(`  ${chalk.bold('On Your Network:')}\thttp://${host}:${chalk.bold(serverConfig.PORT)}\n`);
+    console.log(green('Compiled successfully!\n'));
+    console.log(`You can now view ${bold('app')} in the browser.\n`);
+    console.log(`  ${bold('Local:')}\t\thttp://localhost:${bold(serverConfig.PORT)}`);
+    console.log(`  ${bold('On Your Network:')}\thttp://${host}:${bold(serverConfig.PORT)}\n`);
     console.log('Note that the development build is not optimized.');
-    console.log(`To create a production build, use ${chalk.blue('npm run build')}.\n`);
+    console.log(`To create a production build, use ${blue('npm run build')}.\n`);
   });
 
   return [whm(compiler, { log: false, path: '/__webpack_hmr', heartbeat: 200 }), instance];
