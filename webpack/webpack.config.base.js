@@ -88,12 +88,7 @@ exports.baseConfig = (isWeb) => ({
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
     }),
-    new ESLintPlugin({
-      extensions: ['js', 'jsx'],
-      failOnError: false,
-      failOnWarning: false,
-      overrideConfigFile: '.eslintrc.js',
-    }),
+    new ESLintPlugin({ extensions: ['js', 'jsx'] }),
   ].filter(Boolean),
   module: {
     rules: [
