@@ -157,7 +157,5 @@ module.exports = merge(config, {
       name: (entrypoint) => `runtime-${entrypoint.name}`,
     },
   },
-  stats: {
-    children: isDev(),
-  },
+  stats: 'none',
 });
