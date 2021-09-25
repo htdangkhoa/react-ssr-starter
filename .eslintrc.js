@@ -25,6 +25,7 @@ module.exports = {
     __DEV__: 'readonly',
   },
   rules: {
+    'no-console': 'off',
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-props-no-spreading': 'off',
