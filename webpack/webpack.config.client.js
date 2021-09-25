@@ -105,57 +105,59 @@ module.exports = merge(config, {
     isDev() && new ReactRefreshWebpackPlugin(),
     isDev() && new FriendlyErrorsWebpackPlugin(),
   ].filter(Boolean),
-  optimization: {
-    minimize: !isDev(),
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          parse: {
-            ecma: 8,
-          },
-          compress: { drop_console: true },
-          mangle: {
-            safari10: true,
-          },
-          keep_classnames: !isDev(),
-          keep_fnames: !isDev(),
-          output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true,
-          },
-        },
-      }),
-      new CssMinimizerPlugin({
-        minimizerOptions: {
-          preset: [
-            'default',
-            {
-              discardComments: { removeAll: true },
+  optimization: isDev()
+    ? undefined
+    : {
+        minimize: !isDev(),
+        minimizer: [
+          new TerserPlugin({
+            terserOptions: {
+              parse: {
+                ecma: 8,
+              },
+              compress: { drop_console: true },
+              mangle: {
+                safari10: true,
+              },
+              keep_classnames: !isDev(),
+              keep_fnames: !isDev(),
+              output: {
+                ecma: 5,
+                comments: false,
+                ascii_only: true,
+              },
             },
-          ],
+          }),
+          new CssMinimizerPlugin({
+            minimizerOptions: {
+              preset: [
+                'default',
+                {
+                  discardComments: { removeAll: true },
+                },
+              ],
+            },
+          }),
+        ],
+        splitChunks: {
+          chunks: 'all',
+          enforceSizeThreshold: 50000,
+          cacheGroups: {
+            defaultVendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10,
+              reuseExistingChunk: true,
+            },
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true,
+            },
+          },
         },
-      }),
-    ],
-    splitChunks: {
-      chunks: 'all',
-      enforceSizeThreshold: 50000,
-      cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          reuseExistingChunk: true,
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
+        runtimeChunk: {
+          name: (entrypoint) => `runtime-${entrypoint.name}`,
         },
       },
-    },
-    runtimeChunk: {
-      name: (entrypoint) => `runtime-${entrypoint.name}`,
-    },
-  },
   stats: 'none',
 });
