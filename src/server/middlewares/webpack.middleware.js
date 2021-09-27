@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import whm from 'webpack-hot-middleware';
 import wdm from 'webpack-dev-middleware';
 import formatWebpackMessages from 'webpack-format-messages';
-import { underline, bold, green, red, yellow, cyan, blue } from 'colorette';
+import { underline, bold, green, red, yellow, cyan, blue } from 'nanocolors';
 
 import serverConfig from 'configs/server';
 import config from '~/webpack/webpack.config.client';
