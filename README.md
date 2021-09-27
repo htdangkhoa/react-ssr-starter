@@ -51,7 +51,6 @@ yarn dev # or npm run dev
 - [Webpack](https://webpack.js.org) - App bundling
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
-- [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
 - [react-helmet-async](https://github.com/staylor/react-helmet-async) - Thread-safe Helmet for React 16+ and friends
 - [loadable-component](https://github.com/gregberge/loadable-components) - The recommended Code Splitting library for React
