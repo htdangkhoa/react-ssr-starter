@@ -47,7 +47,7 @@ yarn dev # or npm run dev
 - [Redux Toolkit](https://redux-toolkit.js.org) - The official, opinionated, batteries-included toolset for efficient Redux development
 - [Reach Router](https://reach.tech/router) - A small, simple router for React that borrows from React Router
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies
-- [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings the Fetch API to Node.js
+- [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify
 - [Webpack](https://webpack.js.org) - App bundling
 - [Babel](https://babeljs.io) - The compiler for next generation JavaScript
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
@@ -59,7 +59,7 @@ yarn dev # or npm run dev
 - [Webpack Hot Middleware](https://github.com/webpack-contrib/webpack-hot-middleware) - Allows you to add hot reloading into the Express server
 - [ESLint](https://eslint.org) - Find and fix problems in your JavaScript code
 - [Prettier](https://prettier.io/) - Format code and style
-- Integrate [Jest](https://jestjs.io/) with [Supertest](https://github.com/visionmedia/supertest) and [React Testing Library](https://github.com/testing-library/react-testing-library) as the solution for writing unit tests with code coverage support
+- Integrate [Jest](https://jestjs.io/) with [Supertest](https://github.com/visionmedia/supertest), [Nock](https://github.com/nock/nock) and [React Testing Library](https://github.com/testing-library/react-testing-library) as the solution for writing unit tests with code coverage support
 
 ## Scripts
 

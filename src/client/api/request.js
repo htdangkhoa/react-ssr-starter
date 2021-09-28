@@ -1,17 +1,5 @@
+import 'isomorphic-fetch';
 import appConfig from 'configs/app';
-
-/**
- * Loading node-fetch@3 in CJS
- * References: https://github.com/node-fetch/node-fetch/issues/1279#issuecomment-915063354
- */
-// eslint-disable-next-line no-new-func
-const _importDynamic = new Function('modulePath', 'return import(modulePath)');
-
-const nFetch = (...args) => _importDynamic('node-fetch').then(({ default: fetch }) => fetch(...args));
-
-if (!globalThis.fetch) {
-  globalThis.fetch = nFetch;
-}
 
 /**
  * @param {string} url
