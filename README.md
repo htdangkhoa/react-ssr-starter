@@ -59,7 +59,7 @@ yarn dev # or npm run dev
 - [Webpack Hot Middleware](https://github.com/webpack-contrib/webpack-hot-middleware) - Allows you to add hot reloading into the Express server
 - [ESLint](https://eslint.org) - Find and fix problems in your JavaScript code
 - [Prettier](https://prettier.io/) - Format code and style
-- Integrate [Jest](https://jestjs.io/) with [Supertest](https://github.com/visionmedia/supertest) and [React Testing Library](https://github.com/testing-library/react-testing-library) as the solution for writing unit tests with code coverage support
+- Integrate [Jest](https://jestjs.io/) with [Supertest](https://github.com/visionmedia/supertest), [Nock](https://github.com/nock/nock) and [React Testing Library](https://github.com/testing-library/react-testing-library) as the solution for writing unit tests with code coverage support
 
 ## Scripts
 

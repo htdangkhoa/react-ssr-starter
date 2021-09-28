@@ -1,4 +1,4 @@
-const baseConfig = require('./config.base');
+const baseConfig = require('./base.config');
 
 module.exports = {
   ...baseConfig(true),
