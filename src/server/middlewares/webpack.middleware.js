@@ -15,12 +15,20 @@ const clearConsole = () =>
   process.stdout.write(process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H');
 
 const printInstructions = () => {
-  const { en0 } = os.networkInterfaces();
+  const { en0, Ethernet } = os.networkInterfaces();
 
-  // get last en0
-  const [lastEn0] = (en0 || []).filter(({ family }) => family === 'IPv4').splice(-1);
+  let interfaces = [];
 
-  const host = !lastEn0 ? '0.0.0.0' : lastEn0.address;
+  if (Array.isArray(en0)) {
+    interfaces = en0;
+  } else if (Array.isArray(Ethernet)) {
+    interfaces = Ethernet;
+  }
+
+  // get last IPv4
+  const [lastIPv4] = interfaces.filter(({ family }) => family === 'IPv4').splice(-1);
+
+  const host = !lastIPv4 ? '0.0.0.0' : lastIPv4.address;
 
   console.log(`You can now view ${bold('app')} in the browser.\n`);
   console.log(`  ${bold('Local:')}\t\thttp://localhost:${bold(serverConfig.PORT)}`);
