@@ -5,6 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
@@ -87,6 +88,7 @@ exports.baseConfig = (isWeb) => ({
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
     }),
+    !isDev() && new ESLintPlugin({ extensions: ['js', 'jsx'], threads: 2 }),
   ].filter(Boolean),
   module: {
     rules: [
