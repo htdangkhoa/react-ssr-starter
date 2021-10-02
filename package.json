@@ -47,8 +47,9 @@
     "gen": "plop",
     "prepare": "husky install",
     "start": "node --no-warnings build/index.js",
-    "pretest": "node scripts/pretest.js",
+    "pretest:ci": "node scripts/pretest.js",
     "test:ci": "cross-env NODE_ENV=test jest --runInBand",
+    "pretest": "node scripts/pretest.js",
     "test": "cross-env NODE_ENV=test jest --maxWorkers=50%"
   },
   "dependencies": {
