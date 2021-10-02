@@ -10,7 +10,6 @@
   ],
   "plugins": [
     "@babel/transform-runtime",
-    "@babel/syntax-dynamic-import",
     [
       "module-resolver",
       {

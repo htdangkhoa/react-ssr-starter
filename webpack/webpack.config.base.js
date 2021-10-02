@@ -3,6 +3,7 @@ const glob = require('glob');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
@@ -70,6 +71,7 @@ exports.baseConfig = (isWeb) => ({
       __SERVER__: !isWeb,
       __DEV__: isDev(),
     }),
+    new Dotenv(),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         '**/*',
