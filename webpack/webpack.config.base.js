@@ -1,12 +1,11 @@
 const { resolve } = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
-const DotenvWebpack = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ESLintPlugin = require('eslint-webpack-plugin');
 
 const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
@@ -72,7 +71,7 @@ exports.baseConfig = (isWeb) => ({
       __SERVER__: !isWeb,
       __DEV__: isDev(),
     }),
-    new DotenvWebpack(),
+    new Dotenv(),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         '**/*',
@@ -88,7 +87,6 @@ exports.baseConfig = (isWeb) => ({
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
     }),
-    new ESLintPlugin({ extensions: ['js', 'jsx'] }),
   ].filter(Boolean),
   module: {
     rules: [
@@ -172,15 +170,17 @@ exports.baseConfig = (isWeb) => ({
     modules: ['node_modules'],
     extensions: ['.json', '.js', '.jsx'],
   },
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        parallel: true,
-        extractComments: false,
-        terserOptions: {
-          compress: { drop_console: true },
-        },
-      }),
-    ],
-  },
+  optimization: isDev()
+    ? undefined
+    : {
+        minimizer: [
+          new TerserPlugin({
+            parallel: true,
+            extractComments: false,
+            terserOptions: {
+              compress: { drop_console: true },
+            },
+          }),
+        ],
+      },
 });

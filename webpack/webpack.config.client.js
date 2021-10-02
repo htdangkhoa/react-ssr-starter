@@ -5,7 +5,6 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
@@ -103,7 +102,6 @@ module.exports = merge(config, {
       }),
     isDev() && new webpack.HotModuleReplacementPlugin(),
     isDev() && new ReactRefreshWebpackPlugin(),
-    isDev() && new FriendlyErrorsWebpackPlugin(),
   ].filter(Boolean),
   optimization: isDev()
     ? undefined
