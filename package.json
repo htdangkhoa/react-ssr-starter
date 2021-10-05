@@ -125,7 +125,7 @@
     "style-loader": "^3.3.0",
     "supertest": "^6.1.6",
     "terser-webpack-plugin": "^5.2.4",
-    "webpack": "^5.55.1",
+    "webpack": "^5.56.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.2",
     "webpack-dev-middleware": "^5.2.0",
