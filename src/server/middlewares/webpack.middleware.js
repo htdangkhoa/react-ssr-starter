@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import whm from 'webpack-hot-middleware';
 import wdm from 'webpack-dev-middleware';
 import formatWebpackMessages from 'webpack-format-messages';
-import { underline, bold, green, red, yellow, cyan, blue } from 'nanocolors';
+import colors from 'picocolors';
 
 import serverConfig from 'configs/server';
 import config from '~/webpack/webpack.config.client';
@@ -30,11 +30,11 @@ const printInstructions = () => {
 
   const host = !lastIPv4 ? '0.0.0.0' : lastIPv4.address;
 
-  console.log(`You can now view ${bold('app')} in the browser.\n`);
-  console.log(`  ${bold('Local:')}\t\thttp://localhost:${bold(serverConfig.PORT)}`);
-  console.log(`  ${bold('On Your Network:')}\thttp://${host}:${bold(serverConfig.PORT)}\n`);
+  console.log(`You can now view ${colors.bold('app')} in the browser.\n`);
+  console.log(`  ${colors.bold('Local:')}\t\thttp://localhost:${colors.bold(serverConfig.PORT)}`);
+  console.log(`  ${colors.bold('On Your Network:')}\thttp://${host}:${colors.bold(serverConfig.PORT)}\n`);
   console.log('Note that the development build is not optimized.');
-  console.log(`To create a production build, use ${blue('npm run build')}.\n`);
+  console.log(`To create a production build, use ${colors.blue('npm run build')}.\n`);
 };
 
 const compiler = webpack(config);
@@ -60,7 +60,7 @@ const webpackMiddleware = () => {
     const isSuccessful = !messages.errors.length && !messages.warnings.length;
 
     if (isSuccessful) {
-      console.log(green('Compiled successfully!\n'));
+      console.log(colors.green('Compiled successfully!\n'));
 
       if (isInteractive || isFirstCompile) {
         printInstructions();
@@ -72,19 +72,19 @@ const webpackMiddleware = () => {
       if (messages.errors.length > 1) {
         messages.errors.length = 1;
       }
-      console.log(red('Failed to compile.\n'));
+      console.log(colors.red('Failed to compile.\n'));
       console.log(messages.errors.join('\n\n'));
 
       return;
     }
 
     if (messages.warnings.length) {
-      console.log(yellow('Compiled with warnings.\n'));
+      console.log(colors.yellow('Compiled with warnings.\n'));
       console.log(messages.warnings.join('\n\n'));
 
       // Teach some ESLint tricks.
-      console.log(`\nSearch for the ${underline(yellow('keywords'))} to learn more about each warning.`);
-      console.log(`To ignore, add ${cyan('// eslint-disable-next-line')} to the line before.\n`);
+      console.log(`\nSearch for the ${colors.underline(colors.yellow('keywords'))} to learn more about each warning.`);
+      console.log(`To ignore, add ${colors.cyan('// eslint-disable-next-line')} to the line before.\n`);
     }
   });
 
