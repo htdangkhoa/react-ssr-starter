@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin: CleanPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
@@ -73,7 +73,7 @@ exports.baseConfig = (isWeb) => ({
       __DEV__: isDev(),
     }),
     new Dotenv(),
-    new CleanWebpackPlugin({
+    new CleanPlugin({
       cleanOnceBeforeBuildPatterns: [
         '**/*',
         '!robots.txt',
