@@ -121,7 +121,7 @@
     "prettier": "^2.4.1",
     "react-refresh": "^0.10.0",
     "sass": "^1.42.1",
-    "sass-loader": "^12.1.0",
+    "sass-loader": "^12.2.0",
     "style-loader": "^3.3.0",
     "supertest": "^6.1.6",
     "terser-webpack-plugin": "^5.2.4",
