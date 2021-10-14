@@ -25,14 +25,4 @@ app.get('/api/health', (req, res) => res.status(200).end());
 
 app.get('*', render);
 
-app.shutdown = function shutdown() {
-  console.log('\nShuting down server...');
-
-  this.close((err) => {
-    if (err) return process.exit(1);
-
-    return process.exit(0);
-  });
-};
-
 export default app;

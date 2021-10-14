@@ -32,11 +32,6 @@ loadableReady(render);
 
 if (module.hot) {
   module.hot.accept();
-
-  module.hot.addStatusHandler((status) => {
-    // React to the current status...
-    if (status === 'check') window.location.reload();
-  });
 }
 
 // If you want your app to work offline and load faster, you can change
