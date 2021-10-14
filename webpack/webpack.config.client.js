@@ -19,6 +19,7 @@ rules.shift(babelConfig);
 module.exports = merge(config, {
   entry: mergeBaseEntry(
     isDev() && 'webpack-hot-middleware/client?reload=true&timeout=2000',
+    isDev() && 'react-refresh/runtime',
     getPath('src/client/index.jsx'),
   ),
   output: {

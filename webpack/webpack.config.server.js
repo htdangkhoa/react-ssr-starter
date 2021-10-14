@@ -5,6 +5,24 @@ const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config
 
 let nodeProcess;
 
+const tryToKillProcess = (force) => () => {
+  if (nodeProcess) {
+    try {
+      if (process.platform === 'win32') {
+        execSync(`taskkill /pid ${nodeProcess.pid} /f /t`);
+      } else {
+        nodeProcess.kill();
+      }
+
+      nodeProcess = null;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  if (force) process.exit(0);
+};
+
 module.exports = merge(baseConfig(false), {
   entry: mergeBaseEntry(getPath('src/server/index.js')),
   target: 'node',
@@ -27,26 +45,21 @@ module.exports = merge(baseConfig(false), {
   plugins: [
     isDev() && {
       apply(compiler) {
-        compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
-          if (nodeProcess) {
-            try {
-              if (process.platform === 'win32') {
-                execSync(`taskkill /pid ${nodeProcess.pid} /f /t`);
-              } else {
-                nodeProcess.kill();
-              }
-              nodeProcess = null;
-            } catch (e) {
-              console.error(e);
-            }
-          }
+        compiler.hooks.afterEmit.tapAsync('AfterEmitPlugin', (_, callback) => {
+          tryToKillProcess()();
+
           nodeProcess = spawn('npm', ['start'], {
             shell: true,
             env: process.env,
             stdio: 'inherit',
           });
+
+          callback();
         });
       },
     },
   ].filter(Boolean),
 });
+
+process.addListener('SIGINT', tryToKillProcess(true));
+process.addListener('SIGTERM', tryToKillProcess(true));
