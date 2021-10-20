@@ -37,6 +37,11 @@ git clone https://github.com/htdangkhoa/react-ssr-starter
 
 yarn install # or npm install
 
+# Fore Node 17:
+# Please use the legacy of the openssl to bypass the issue: digital envelope routines::unsupported
+# References: https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
+export NODE_OPTIONS=--openssl-legacy-provider
+
 yarn dev # or npm run dev
 ```
 
