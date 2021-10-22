@@ -122,7 +122,7 @@
     "react-refresh": "^0.10.0",
     "sass": "^1.43.2",
     "sass-loader": "^12.2.0",
-    "style-loader": "^3.3.0",
+    "style-loader": "^3.3.1",
     "supertest": "^6.1.6",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.59.0",
