@@ -85,10 +85,17 @@ exports.baseConfig = (isWeb) => ({
         '!icon-*.png',
       ],
     }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
-    }),
-    !isDev() && new ESLintPlugin({ extensions: ['js', 'jsx'], threads: 2 }),
+    process.env.NODE_ENV === 'analyze' &&
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+      }),
+    !isDev() &&
+      new ESLintPlugin({
+        extensions: ['js', 'jsx'],
+        cache: true,
+        cacheLocation: getPath('.cache/.eslintcache'),
+        threads: 2,
+      }),
   ].filter(Boolean),
   module: {
     rules: [
@@ -98,6 +105,8 @@ exports.baseConfig = (isWeb) => ({
         loader: 'babel-loader',
         options: {
           caller: { target: isWeb ? 'web' : 'node' },
+          cacheDirectory: true,
+          cacheCompression: false,
         },
       },
       {
@@ -118,8 +127,7 @@ exports.baseConfig = (isWeb) => ({
         },
       },
       {
-        // svg|woff2?|eot|ttf|otf
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(bmp|png|jpe?g|gif)$/i,
         type: 'asset',
         generator: {
           emit: isWeb,
@@ -142,11 +150,12 @@ exports.baseConfig = (isWeb) => ({
                 loader: '@svgr/webpack',
                 options: {
                   prettier: false,
-                  svgo: true,
+                  svgo: false,
                   svgoConfig: {
                     plugins: [{ removeViewBox: false }],
                   },
                   titleProp: true,
+                  ref: true,
                 },
               },
               {
