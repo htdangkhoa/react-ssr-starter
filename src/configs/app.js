@@ -1,5 +1,5 @@
 const appConfig = {
-  baseUrl: 'https://jsonplaceholder.typicode.com/',
+  baseUrl: 'http://localhost:9090/api/',
   seo: {
     htmlAttributes: { lang: 'en' },
     defaultTitle: '⚛️ React SSR Starter',
