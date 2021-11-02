@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+const fs = require('fs');
 const glob = require('glob');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -25,8 +26,55 @@ const mergeBaseEntry = (...main) => {
 };
 exports.mergeBaseEntry = mergeBaseEntry;
 
+const _isDev = isDev();
+
+const getPlugins = (isWeb) => {
+  const plugins = [
+    new webpack.ProgressPlugin(),
+    new webpack.DefinePlugin({
+      __CLIENT__: isWeb,
+      __SERVER__: !isWeb,
+      __DEV__: _isDev,
+    }),
+    new Dotenv(),
+    new CleanPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        '**/*',
+        '!robots.txt',
+        '!android-icon-*',
+        '!apple-icon*',
+        '!browserconfig.xml',
+        '!favicon*',
+        '!ms-icon*',
+        '!icon-*.png',
+      ],
+    }),
+  ];
+
+  if (process.env.NODE_ENV === 'analyze') {
+    plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+      }),
+    );
+  }
+
+  if (!_isDev) {
+    plugins.push(
+      new ESLintPlugin({
+        extensions: ['js', 'jsx'],
+        cache: true,
+        cacheLocation: getPath('.cache/.eslintcache'),
+        threads: 2,
+      }),
+    );
+  }
+
+  return plugins;
+};
+
 const getStyleLoaders = (isWeb, isModule) => {
-  const dev = isDev();
+  const dev = _isDev;
 
   const loaders = [
     {
@@ -60,54 +108,48 @@ const getStyleLoaders = (isWeb, isModule) => {
   return loaders;
 };
 
+const getAlias = () => ({
+  '~': getPath(),
+  configs: getPath('src/configs'),
+  client: getPath('src/client'),
+  server: getPath('src/server'),
+  'test-utils': getPath('src/test-utils'),
+});
+exports.getAlias = getAlias;
+
+const getOptimization = () => {
+  if (_isDev) return undefined;
+
+  return {
+    minimizer: [
+      new TerserPlugin({
+        minify: TerserPlugin.swcMinify,
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          compress: { drop_console: true },
+        },
+      }),
+    ],
+  };
+};
+
+const swcConfig = JSON.parse(fs.readFileSync(getPath('.swcrc'), 'utf-8'));
+swcConfig.jsc.transform.react.development = _isDev;
+
 exports.baseConfig = (isWeb) => ({
-  mode: isDev() ? 'development' : 'production',
-  devtool: isDev() ? 'cheap-module-source-map' : false,
+  mode: _isDev ? 'development' : 'production',
+  devtool: _isDev ? 'cheap-module-source-map' : false,
   stats: 'minimal',
   output: { clean: !isWeb },
-  plugins: [
-    new webpack.ProgressPlugin(),
-    new webpack.DefinePlugin({
-      __CLIENT__: isWeb,
-      __SERVER__: !isWeb,
-      __DEV__: isDev(),
-    }),
-    new Dotenv(),
-    new CleanPlugin({
-      cleanOnceBeforeBuildPatterns: [
-        '**/*',
-        '!robots.txt',
-        '!android-icon-*',
-        '!apple-icon*',
-        '!browserconfig.xml',
-        '!favicon*',
-        '!ms-icon*',
-        '!icon-*.png',
-      ],
-    }),
-    process.env.NODE_ENV === 'analyze' &&
-      new BundleAnalyzerPlugin({
-        analyzerMode: 'server',
-      }),
-    !isDev() &&
-      new ESLintPlugin({
-        extensions: ['js', 'jsx'],
-        cache: true,
-        cacheLocation: getPath('.cache/.eslintcache'),
-        threads: 2,
-      }),
-  ].filter(Boolean),
+  plugins: getPlugins(isWeb),
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          caller: { target: isWeb ? 'web' : 'node' },
-          cacheDirectory: true,
-          cacheCompression: false,
-        },
+        loader: 'swc-loader',
+        options: swcConfig,
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -180,18 +222,7 @@ exports.baseConfig = (isWeb) => ({
   resolve: {
     modules: ['node_modules'],
     extensions: ['.json', '.js', '.jsx'],
+    alias: getAlias(),
   },
-  optimization: isDev()
-    ? undefined
-    : {
-        minimizer: [
-          new TerserPlugin({
-            parallel: true,
-            extractComments: false,
-            terserOptions: {
-              compress: { drop_console: true },
-            },
-          }),
-        ],
-      },
+  optimization: getOptimization(),
 });

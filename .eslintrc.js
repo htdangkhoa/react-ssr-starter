@@ -1,3 +1,5 @@
+const { getAlias } = require('./webpack/webpack.config.base');
+
 module.exports = {
   env: {
     browser: true,
@@ -16,7 +18,10 @@ module.exports = {
   plugins: ['react', 'prettier'],
   settings: {
     'import/resolver': {
-      'babel-module': {},
+      alias: {
+        map: Object.entries(getAlias()),
+        extensions: ['.js', '.jsx', '.json'],
+      },
     },
   },
   globals: {

@@ -1,32 +1,43 @@
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const { spawn, execSync } = require('child_process');
+const spawn = require('cross-spawn');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
+
+const _isDev = isDev();
 
 let nodeProcess;
 
-const tryToKillProcess = (force) => () => {
+const tryToKillProcess = () => {
   if (nodeProcess) {
     try {
-      if (process.platform === 'win32') {
-        execSync(`taskkill /pid ${nodeProcess.pid} /f /t`);
-      } else {
-        nodeProcess.kill();
-      }
+      nodeProcess.kill();
 
       nodeProcess = null;
     } catch (e) {
       console.error(e);
     }
   }
+};
 
-  if (force) process.exit(0);
+const registerShutdown = (fn) => {
+  let run = false;
+
+  const wrapper = () => {
+    if (!run) {
+      run = true;
+      fn();
+    }
+  };
+
+  process.on('SIGINT', wrapper);
+  process.on('SIGTERM', wrapper);
+  process.on('exit', wrapper);
 };
 
 module.exports = merge(baseConfig(false), {
   entry: mergeBaseEntry(getPath('src/server/index.js')),
   target: 'node',
-  watch: isDev(),
+  watch: _isDev,
   watchOptions: {
     ignored: [getPath('src/client'), getPath('src/test-utils')],
   },
@@ -43,10 +54,10 @@ module.exports = merge(baseConfig(false), {
     }),
   ],
   plugins: [
-    isDev() && {
+    _isDev && {
       apply(compiler) {
         compiler.hooks.afterEmit.tapAsync('AfterEmitPlugin', (_, callback) => {
-          tryToKillProcess()();
+          registerShutdown(tryToKillProcess);
 
           nodeProcess = spawn('npm', ['start'], {
             shell: true,
@@ -61,5 +72,8 @@ module.exports = merge(baseConfig(false), {
   ].filter(Boolean),
 });
 
-process.addListener('SIGINT', tryToKillProcess(true));
-process.addListener('SIGTERM', tryToKillProcess(true));
+registerShutdown(() => {
+  process.on('SIGINT', () => {
+    process.exit(0);
+  });
+});

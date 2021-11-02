@@ -1,17 +1,30 @@
 import serverConfig from 'configs/server';
 import app from './app';
 
-const shutdown = () => {
-  console.log('\nShuting down server...');
+const registerShutdown = (fn) => {
+  let run = false;
 
-  app.close((err) => {
-    if (err) return process.exit(1);
+  const wrapper = () => {
+    if (!run) {
+      run = true;
+      fn();
+    }
+  };
 
-    return process.exit(0);
-  });
+  process.on('SIGINT', wrapper);
+  process.on('SIGTERM', wrapper);
+  process.on('exit', wrapper);
 };
 
-app.listen(serverConfig.PORT);
+app.listen(serverConfig.PORT, () => {
+  registerShutdown(() => app.close());
+});
 
-process.addListener('SIGTERM', shutdown);
-process.addListener('SIGINT', shutdown);
+registerShutdown(() => {
+  console.log(`\nGracefully shutting down. Please wait...`);
+
+  process.on('SIGINT', () => {
+    console.log('Force-closing all open sockets...');
+    process.exit(0);
+  });
+});
