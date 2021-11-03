@@ -47,6 +47,8 @@ const getPlugins = (isWeb) => {
         '!favicon*',
         '!ms-icon*',
         '!icon-*.png',
+        '!icon-*.png',
+        '!site.webmanifest',
       ],
     }),
   ];
@@ -123,7 +125,6 @@ const getOptimization = () => {
   return {
     minimizer: [
       new TerserPlugin({
-        minify: TerserPlugin.swcMinify,
         parallel: true,
         extractComments: false,
         terserOptions: {

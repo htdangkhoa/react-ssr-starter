@@ -45,6 +45,14 @@ export NODE_OPTIONS=--openssl-legacy-provider
 yarn dev # or npm run dev
 ```
 
+## Highlight
+
+Using [SWC](https://swc.rs) will give build times **1.5x** faster for the server and **2.2x** for the client instead of using Babel
+
+| Babel                                                                                                           | SWC                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| ![Babel](https://user-images.githubusercontent.com/15341301/140147312-322db462-9374-4da0-a8f9-e04fd10e7430.png) | ![Swc](https://user-images.githubusercontent.com/15341301/140154139-a71b21e3-d800-4ecd-8fa4-5329e563c05b.png) |
+
 ## Features
 
 - [React](https://reactjs.org) - A JavaScript library for building user interfaces
@@ -54,7 +62,7 @@ yarn dev # or npm run dev
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies
 - [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify
 - [Webpack](https://webpack.js.org) - App bundling
-- [swc](https://swc.rs) - A super-fast compiler written in rust, producing widely-supported javascript from modern standards and typescript
+- [SWC](https://swc.rs) - A super-fast compiler written in rust, producing widely-supported javascript from modern standards and typescript
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state
 - [react-helmet](https://github.com/nfl/react-helmet) - A document head manager for React
 - [react-helmet-async](https://github.com/staylor/react-helmet-async) - Thread-safe Helmet for React 16+ and friends
