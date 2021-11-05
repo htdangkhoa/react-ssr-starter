@@ -105,7 +105,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
     "lint-staged": "^11.2.6",
-    "mini-css-extract-plugin": "^2.4.3",
+    "mini-css-extract-plugin": "^2.4.4",
     "nock": "^13.1.4",
     "picocolors": "^1.0.0",
     "plop": "^2.7.6",
