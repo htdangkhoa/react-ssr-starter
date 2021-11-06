@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { loadableReady } from '@loadable/component';
 
@@ -19,9 +20,11 @@ const render = () => {
   ReactDOM.hydrate(
     <StrictMode>
       <Provider store={store}>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
+        <BrowserRouter>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </BrowserRouter>
       </Provider>
     </StrictMode>,
     document.getElementById('app'),

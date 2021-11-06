@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { useParams } from '@reach/router';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
@@ -15,7 +15,7 @@ const UserInfoAsync = memo(() => {
 
   const userInfo = useSelector((state) => state.userInfo);
 
-  const userInfoState = useMemo(() => userInfo[params.id], [params]);
+  const userInfoState = useMemo(() => userInfo[params.id], [userInfo, params]);
 
   if (userInfoState?.loading === STATUS.LOADING) return <Loading />;
 
