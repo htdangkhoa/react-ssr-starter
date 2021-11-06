@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from 'client/assets/images/logo.svg';
 import styles from './style.module.scss';

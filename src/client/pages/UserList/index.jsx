@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 
 import Loading from 'client/components/Loading';
 import useIsomorphicLayoutEffect from 'client/hooks/useIsomorphicLayoutEffect';

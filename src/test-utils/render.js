@@ -4,7 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { render as rtlRender } from '@testing-library/react';
-import { createHistory, createMemorySource, LocationProvider, Router } from '@reach/router';
+import { MemoryRouter } from 'react-router-dom';
 import createStore from 'client/store';
 
 const store = createStore();
@@ -13,31 +13,24 @@ export const ProviderWithStore = ({ children }) => <Provider store={store}>{chil
 
 export * from '@testing-library/react';
 
-export const render = (
-  ui,
-  { route = '/', history = createHistory(createMemorySource(route)), useRouter = false, useStore = true } = {},
-) => {
-  const Routes = ({ children }) => (
-    <LocationProvider history={history}>{useRouter ? <Router>{children}</Router> : children}</LocationProvider>
-  );
+export const render = (ui, { path = '/', useRouter = false, useStore = true } = {}) => {
+  const Router = ({ children }) =>
+    !useRouter ? children : <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>;
 
   const Component = ({ children }) =>
     useStore ? (
       <ProviderWithStore>
-        <Routes>{children}</Routes>
+        <Router>{children}</Router>
       </ProviderWithStore>
     ) : (
-      <Routes>{children}</Routes>
+      <Router>{children}</Router>
     );
 
-  return {
-    ...rtlRender(
-      <HelmetProvider>
-        <Component>{ui}</Component>
-      </HelmetProvider>,
-    ),
-    history,
-  };
+  return rtlRender(
+    <HelmetProvider>
+      <Component>{ui}</Component>
+    </HelmetProvider>,
+  );
 };
 
 export { rtlRender };

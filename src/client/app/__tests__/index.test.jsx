@@ -1,19 +1,22 @@
 import React from 'react';
-import { render, screen } from 'test-utils/render';
+
+import { render, screen, cleanup } from 'test-utils/render';
 import App from '../index';
 
 test('render <App />', async () => {
-  const {
-    history: { navigate },
-  } = render(<App />);
+  render(<App />, { useRouter: true });
+  expect(await screen.findByText(/User List/i)).toBeInTheDocument();
+  cleanup();
 
-  expect(await screen.findByText(/React SSR Starter/i)).toBeInTheDocument();
+  render(<App />, { useRouter: true, path: '/home' });
+  expect(await screen.findByText(/User List/i)).toBeInTheDocument();
+  cleanup();
 
-  await navigate('/user-info/1');
-
+  render(<App />, { useRouter: true, path: '/user-info/1' });
   expect(await screen.findByText(/User Info/i)).toBeInTheDocument();
+  cleanup();
 
-  await navigate('/not-found');
-
+  render(<App />, { useRouter: true, path: '/not-found' });
   expect(await screen.findByText('Page not found.')).toBeInTheDocument();
+  cleanup();
 });
