@@ -53,7 +53,7 @@ Using [SWC](https://swc.rs) will give build times **1.5x** faster for the server
 - [React](https://reactjs.org) - A JavaScript library for building user interfaces
 - [Redux](https://redux.js.org) - A Predictable State Container for JS Apps
 - [Redux Toolkit](https://redux-toolkit.js.org) - The official, opinionated, batteries-included toolset for efficient Redux development
-- [Reach Router](https://reach.tech/router) - A small, simple router for React that borrows from React Router
+- [React Router](https://github.com/remix-run/react-router) - Declarative routing for React
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies
 - [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify
 - [Webpack](https://webpack.js.org) - App bundling
