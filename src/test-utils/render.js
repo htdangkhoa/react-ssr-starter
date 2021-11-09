@@ -11,8 +11,6 @@ const store = createStore();
 
 export const ProviderWithStore = ({ children }) => <Provider store={store}>{children}</Provider>;
 
-export * from '@testing-library/react';
-
 export const render = (ui, { path = '/', useRouter = false, useStore = true } = {}) => {
   const Router = ({ children }) =>
     !useRouter ? children : <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>;
@@ -33,4 +31,4 @@ export const render = (ui, { path = '/', useRouter = false, useStore = true } = 
   );
 };
 
-export { rtlRender };
+export * from '@testing-library/react';
