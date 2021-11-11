@@ -32,8 +32,13 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'react/jsx-props-no-spreading': 'off',
+    'react/function-component-definition': [
+      'error',
+      { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
+    ],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-underscore-dangle': 'off',
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
     'import/prefer-default-export': 'off',

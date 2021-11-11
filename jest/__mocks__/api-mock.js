@@ -9,4 +9,14 @@ const user = {
   website: 'hildegard.org',
 };
 
-nock(appConfig.baseUrl).get('/users').reply(200, [user]).get('/users/1').reply(200, user);
+nock(appConfig.baseUrl)
+  .get('/users')
+  .reply(200, {
+    success: true,
+    users: [user],
+  })
+  .get('/users/1')
+  .reply(200, {
+    success: true,
+    user,
+  });

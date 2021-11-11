@@ -17,11 +17,11 @@ const userInfoSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, { meta: { arg }, error }) => {
         state[arg].loading = STATUS.FAILED;
-        state.error = error;
+        state[arg].error = error;
       })
       .addCase(getUser.fulfilled, (state, { meta: { arg }, payload }) => {
         state[arg].loading = STATUS.SUCCEED;
-        state[arg].data = payload;
+        state[arg].data = payload.user;
       });
   },
 });

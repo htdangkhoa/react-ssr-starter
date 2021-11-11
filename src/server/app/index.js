@@ -256,10 +256,29 @@ const users = [
 
 app.get('/api/health', (req, res) => res.status(200).end());
 
-app.get('/api/users', (req, res) => res.json(users));
+app.get('/api/users', (req, res) =>
+  res.json({
+    success: true,
+    users,
+  }),
+);
 
-app.get('/api/users/:id', (req, res) => res.json(users.find((user) => user.id === parseInt(req.params.id, 10)) || {}));
+app.get('/api/users/:id', (req, res) => {
+  const user = users.find((_user) => _user.id === parseInt(req.params.id, 10)) || {};
 
-app.get('*', render);
+  return res.json({
+    success: true,
+    user,
+  });
+});
+
+app.get(/^(?!.*^\/api\/)(.*)/, render);
+
+app.use((req, res, _next) =>
+  res.status(404).json({
+    success: false,
+    error: `Cannot ${req.method} ${req.path}`,
+  }),
+);
 
 export default app;
