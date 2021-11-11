@@ -7,22 +7,19 @@ import appConfig from 'configs/app';
  * @returns {Promise<Response>}
  */
 const request = (url, init) =>
-  new Promise((resolve, reject) =>
+  new Promise((resolve, reject) => {
     fetch(`${appConfig.baseUrl}${url}`, init)
       .then(async (res) => {
         if (!res.ok) {
-          const message = [res.status, res.statusText && `: ${res.statusText}`].filter(Boolean).join('');
+          const text = await res.text();
 
-          const err = new Error(message);
-          err.response = res;
-
-          return reject(err);
+          throw new Error(text);
         }
 
         return res.json();
       })
-      .then((json) => resolve(json))
-      .catch((err) => reject(err)),
-  );
+      .then(resolve)
+      .catch(reject);
+  });
 
 export default request;

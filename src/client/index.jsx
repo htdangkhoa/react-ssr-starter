@@ -9,6 +9,7 @@ import './assets/styles/index.scss';
 
 import App from './app';
 import createStore from './store';
+import reportWebVitals from './report-web-vitals';
 import * as serviceWorker from './service-worker';
 
 const initialState = window.__INITIAL_STATE__;
@@ -36,6 +37,8 @@ loadableReady(render);
 if (module.hot) {
   module.hot.accept();
 }
+
+reportWebVitals();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below.
