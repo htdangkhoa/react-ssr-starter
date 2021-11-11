@@ -42,5 +42,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
     'import/prefer-default-export': 'off',
+    'import/no-import-module-exports': ['error', { exceptions: ['**/*/*.jsx'] }],
   },
 };
