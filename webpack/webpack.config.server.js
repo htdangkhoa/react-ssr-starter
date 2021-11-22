@@ -1,23 +1,9 @@
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const spawn = require('cross-spawn');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
+const SpawnWebpackPlugin = require('./plugins/spawn-webpack-plugin');
 
 const _isDev = isDev();
-
-let nodeProcess;
-
-const tryToKillProcess = () => {
-  if (nodeProcess) {
-    try {
-      nodeProcess.kill();
-
-      nodeProcess = null;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-};
 
 const registerShutdown = (fn) => {
   let run = false;
@@ -39,7 +25,7 @@ module.exports = merge(baseConfig(false), {
   target: 'node',
   watch: _isDev,
   watchOptions: {
-    ignored: [getPath('src/client'), getPath('src/test-utils')],
+    ignored: [getPath('src/client'), getPath('src/test-utils'), '**/node_modules'],
   },
   output: {
     path: getPath('build'),
@@ -53,23 +39,7 @@ module.exports = merge(baseConfig(false), {
       allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
     }),
   ],
-  plugins: [
-    _isDev && {
-      apply(compiler) {
-        compiler.hooks.afterEmit.tapAsync('AfterEmitPlugin', (_, callback) => {
-          registerShutdown(tryToKillProcess);
-
-          nodeProcess = spawn('npm', ['start'], {
-            shell: true,
-            env: process.env,
-            stdio: 'inherit',
-          });
-
-          callback();
-        });
-      },
-    },
-  ].filter(Boolean),
+  plugins: [new SpawnWebpackPlugin('npm', ['start'], { dev: _isDev })],
 });
 
 registerShutdown(() => {

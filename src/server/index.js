@@ -1,30 +1,12 @@
 import serverConfig from 'configs/server';
 import app from './app';
+import terminate from './terminate';
 
-const registerShutdown = (fn) => {
-  let run = false;
+app.listen(serverConfig.PORT);
 
-  const wrapper = () => {
-    if (!run) {
-      run = true;
-      fn();
-    }
-  };
+const exitHandler = terminate(app);
 
-  process.on('SIGINT', wrapper);
-  process.on('SIGTERM', wrapper);
-  process.on('exit', wrapper);
-};
-
-app.listen(serverConfig.PORT, () => {
-  registerShutdown(() => app.close());
-});
-
-registerShutdown(() => {
-  console.log(`\nGracefully shutting down. Please wait...`);
-
-  process.on('SIGINT', () => {
-    console.log('Force-closing all open sockets...');
-    process.exit(0);
-  });
-});
+process.on('uncaughtException', exitHandler(1, 'Unexpected Error'));
+process.on('unhandledRejection', exitHandler(1, 'Unhandled Promise'));
+process.on('SIGTERM', exitHandler(0, 'SIGTERM'));
+process.on('SIGINT', exitHandler(0, 'SIGINT'));
