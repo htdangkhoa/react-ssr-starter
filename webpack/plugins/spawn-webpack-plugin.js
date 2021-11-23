@@ -12,6 +12,8 @@ class SpawnWebpackPlugin {
    * @param {boolean} [options.dev=false]
    */
   constructor(command, args, options) {
+    this.PLUGIN_NAME = 'SpawnWebpackPlugin';
+
     this.command = command;
 
     let _args = [];
@@ -68,7 +70,7 @@ class SpawnWebpackPlugin {
   apply(compiler) {
     if (!this.opts.dev) return;
 
-    compiler.hooks.done.tapAsync('ShellWebpackPlugin', (_, callback) => {
+    compiler.hooks.done.tapAsync(this.PLUGIN_NAME, (_, callback) => {
       if (this.nodeProcess) {
         this.tryToKillProcess();
       }
