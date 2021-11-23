@@ -1,5 +1,20 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const spawn = require('cross-spawn');
+
+const registerShutdown = (callback) => {
+  let run = false;
+
+  function wrapper() {
+    if (run) return;
+
+    run = true;
+
+    callback();
+  }
+
+  ['SIGINT', 'SIGTERM', 'exit'].forEach((signal) => {
+    process.on(signal, wrapper);
+  });
+};
 
 /**
  * @class ShellWebpackPlugin
@@ -26,7 +41,7 @@ class SpawnWebpackPlugin {
 
     this.opts = { ...options };
 
-    this.registerShutdown(() => {
+    registerShutdown(() => {
       this.tryToKillProcess(true);
     });
   }
@@ -45,23 +60,6 @@ class SpawnWebpackPlugin {
     if (force) {
       process.exit();
     }
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  registerShutdown(callback) {
-    let run = false;
-
-    function wrapper() {
-      if (run) return;
-
-      run = true;
-
-      callback();
-    }
-
-    ['SIGINT', 'SIGTERM', 'exit'].forEach((signal) => {
-      process.on(signal, wrapper);
-    });
   }
 
   /**

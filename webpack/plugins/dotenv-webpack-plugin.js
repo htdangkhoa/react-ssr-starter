@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const fs = require('fs');
 const { DefinePlugin } = require('webpack');
@@ -45,7 +44,7 @@ class DotenvWebpackPlugin {
   /**
    * @param {import('webpack').Compiler} compiler
    */
-  // eslint-disable-next-line class-methods-use-this
+
   apply(compiler) {
     const raw = Object.keys(process.env)
       .filter((key) => (this.options.isWeb ? REACT_APP.test(key) : true))

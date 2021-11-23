@@ -43,5 +43,11 @@ module.exports = {
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
     'import/prefer-default-export': 'off',
     'import/no-import-module-exports': ['error', { exceptions: ['**/*/*.jsx'] }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
   },
 };
