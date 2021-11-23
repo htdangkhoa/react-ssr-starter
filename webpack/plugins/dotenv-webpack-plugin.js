@@ -56,6 +56,7 @@ class DotenvWebpackPlugin {
         },
         {
           NODE_ENV: NODE_ENV || 'development',
+          PORT: this.options.isWeb ? undefined : process.env.PORT,
         },
       );
 
