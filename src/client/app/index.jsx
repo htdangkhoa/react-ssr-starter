@@ -14,22 +14,22 @@ const App = () => (
 
     <Header />
 
-    <hr />
+    <main>
+      <Routes>
+        {routes.map(({ path, to, element: Element }, i) => {
+          const elementProps = {};
 
-    <Routes>
-      {routes.map(({ path, to, element: Element }, i) => {
-        const elementProps = {};
+          // handle redirects with Navigate component
+          // reference: https://gist.github.com/htdangkhoa/5b3407c749b6fb8cf05cfb591ec3ef07
+          if (typeof to === 'string') {
+            elementProps.to = to;
+            elementProps.replace = true;
+          }
 
-        // handle redirects with Navigate component
-        // reference: https://gist.github.com/htdangkhoa/5b3407c749b6fb8cf05cfb591ec3ef07
-        if (typeof to === 'string') {
-          elementProps.to = to;
-          elementProps.replace = true;
-        }
-
-        return <Route path={path} element={<Element {...elementProps} />} key={i.toString()} />;
-      })}
-    </Routes>
+          return <Route path={path} element={<Element {...elementProps} />} key={i.toString()} />;
+        })}
+      </Routes>
+    </main>
   </Suspense>
 );
 
