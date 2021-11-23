@@ -2,7 +2,7 @@ import serverConfig from 'configs/server';
 import app from './app';
 import terminate from './terminate';
 
-app.listen(serverConfig.PORT);
+app.listen(serverConfig.PORT, '0.0.0.0');
 
 const exitHandler = terminate(app);
 
