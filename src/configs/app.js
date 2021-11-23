@@ -1,5 +1,5 @@
 const appConfig = {
-  baseUrl: 'http://localhost:9090/api/',
+  baseUrl: process.env.REACT_APP_BASE_URL || 'http://localhost:9090/api/',
   seo: {
     htmlAttributes: { lang: 'en' },
     defaultTitle: '⚛️ React SSR Starter',

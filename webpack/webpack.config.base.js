@@ -4,10 +4,11 @@ const glob = require('glob');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin: CleanPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
 
 const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
@@ -36,7 +37,7 @@ const getPlugins = (isWeb) => {
       __SERVER__: !isWeb,
       __DEV__: _isDev,
     }),
-    new Dotenv(),
+    new DotenvWebpackPlugin({ isWeb }),
     new CleanPlugin({
       cleanOnceBeforeBuildPatterns: [
         '**/*',

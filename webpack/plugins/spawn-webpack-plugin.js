@@ -1,5 +1,20 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const spawn = require('cross-spawn');
+
+const registerShutdown = (callback) => {
+  let run = false;
+
+  function wrapper() {
+    if (run) return;
+
+    run = true;
+
+    callback();
+  }
+
+  ['SIGINT', 'SIGTERM', 'exit'].forEach((signal) => {
+    process.on(signal, wrapper);
+  });
+};
 
 /**
  * @class ShellWebpackPlugin
@@ -12,6 +27,8 @@ class SpawnWebpackPlugin {
    * @param {boolean} [options.dev=false]
    */
   constructor(command, args, options) {
+    this.PLUGIN_NAME = 'SpawnWebpackPlugin';
+
     this.command = command;
 
     let _args = [];
@@ -24,7 +41,7 @@ class SpawnWebpackPlugin {
 
     this.opts = { ...options };
 
-    this.registerShutdown(() => {
+    registerShutdown(() => {
       this.tryToKillProcess(true);
     });
   }
@@ -45,30 +62,13 @@ class SpawnWebpackPlugin {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  registerShutdown(callback) {
-    let run = false;
-
-    function wrapper() {
-      if (run) return;
-
-      run = true;
-
-      callback();
-    }
-
-    ['SIGINT', 'SIGTERM', 'exit'].forEach((signal) => {
-      process.on(signal, wrapper);
-    });
-  }
-
   /**
    * @param {import('webpack').Compiler} compiler
    */
   apply(compiler) {
     if (!this.opts.dev) return;
 
-    compiler.hooks.done.tapAsync('ShellWebpackPlugin', (_, callback) => {
+    compiler.hooks.done.tapAsync(this.PLUGIN_NAME, (_, callback) => {
       if (this.nodeProcess) {
         this.tryToKillProcess();
       }
