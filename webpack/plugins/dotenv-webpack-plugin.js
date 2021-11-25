@@ -46,17 +46,19 @@ class DotenvWebpackPlugin {
    */
 
   apply(compiler) {
-    const raw = Object.keys(process.env)
+    // eslint-disable-next-line prefer-object-spread
+    const vars = Object.assign({}, process.env);
+
+    const raw = Object.keys(vars)
       .filter((key) => (this.options.isWeb ? REACT_APP.test(key) : true))
       .reduce(
         (obj, key) => {
           const _obj = obj;
-          _obj[key] = process.env[key];
+          _obj[key] = vars[key];
           return _obj;
         },
         {
           NODE_ENV: NODE_ENV || 'development',
-          PORT: this.options.isWeb ? undefined : process.env.PORT,
         },
       );
 
