@@ -62,16 +62,16 @@ class DotenvWebpackPlugin {
         },
       );
 
-    // const formattedVars = Object.keys(raw).reduce((env, key) => {
-    //   const _env = env;
-    //   /**
-    //    * Webpack 5 not polyfilling `process.env`
-    //    * Reference: https://github.com/mrsteele/dotenv-webpack/issues/240#issuecomment-710231534
-    //    */
-    //   _env[`process.env.${key}`] = JSON.stringify(raw[key]);
+    const formattedVars = Object.keys(raw).reduce((env, key) => {
+      const _env = env;
+      /**
+       * Webpack 5 not polyfilling `process.env`
+       * Reference: https://github.com/mrsteele/dotenv-webpack/issues/240#issuecomment-710231534
+       */
+      _env[`process.env.${key}`] = JSON.stringify(raw[key]);
 
-    //   return _env;
-    // }, {});
+      return _env;
+    }, {});
 
     const formattedRaw = Object.keys(raw).reduce((env, key) => {
       const _env = env;
@@ -81,8 +81,8 @@ class DotenvWebpackPlugin {
     }, {});
 
     new DefinePlugin({
-      // ...formattedVars,
-      'process.env': formattedRaw,
+      ...formattedVars,
+      'process.env': formattedRaw, // fix: cannot read process object in local
     }).apply(compiler);
   }
 }
