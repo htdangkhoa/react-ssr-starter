@@ -79,7 +79,14 @@ const renderController = async (req, res) => {
 
   const initialState = store.getState();
 
-  const html = renderHtml(head, extractor, markup, initialState);
+  const canonical = [
+    `${req.protocol}://`,
+    req.host,
+    ![80, 443].includes(req.port) && `:${req.port}`,
+    req.originalUrl,
+  ].join('');
+
+  const html = renderHtml(head, canonical, extractor, markup, initialState);
 
   // handle not found status
   const status = contexts.filter(({ status: stt }) => stt === 404).length !== 0 ? 404 : 200;

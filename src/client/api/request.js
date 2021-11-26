@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import appConfig from 'configs/app';
+import appConfig from 'configs/client';
 
 /**
  * @param {string} url
