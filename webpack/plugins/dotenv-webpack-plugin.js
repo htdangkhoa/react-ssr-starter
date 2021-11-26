@@ -81,8 +81,8 @@ class DotenvWebpackPlugin {
     }, {});
 
     new DefinePlugin({
-      ...formattedVars,
       'process.env': formattedRaw, // fix: cannot read process object in local
+      ...formattedVars,
     }).apply(compiler);
   }
 }
