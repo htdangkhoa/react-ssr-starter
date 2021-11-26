@@ -62,18 +62,28 @@ class DotenvWebpackPlugin {
         },
       );
 
-    const formattedVars = Object.keys(raw).reduce((env, key) => {
+    // const formattedVars = Object.keys(raw).reduce((env, key) => {
+    //   const _env = env;
+    //   /**
+    //    * Webpack 5 not polyfilling `process.env`
+    //    * Reference: https://github.com/mrsteele/dotenv-webpack/issues/240#issuecomment-710231534
+    //    */
+    //   _env[`process.env.${key}`] = JSON.stringify(raw[key]);
+
+    //   return _env;
+    // }, {});
+
+    const formattedRaw = Object.keys(raw).reduce((env, key) => {
       const _env = env;
-      /**
-       * Webpack 5 not polyfilling `process.env`
-       * Reference: https://github.com/mrsteele/dotenv-webpack/issues/240#issuecomment-710231534
-       */
-      _env[`process.env.${key}`] = JSON.stringify(raw[key]);
+      _env[key] = JSON.stringify(raw[key]);
 
       return _env;
     }, {});
 
-    new DefinePlugin(formattedVars).apply(compiler);
+    new DefinePlugin({
+      // ...formattedVars,
+      'process.env': formattedRaw,
+    }).apply(compiler);
   }
 }
 
