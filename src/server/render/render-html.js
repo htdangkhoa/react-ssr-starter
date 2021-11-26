@@ -1,7 +1,7 @@
 import serialize from 'serialize-javascript';
 import { minify } from 'html-minifier';
 
-const renderHtml = (head, extractor, markup, initialState = {}) => {
+const renderHtml = (head, canonical, extractor, markup, initialState = {}) => {
   const html = `
     <!DOCTYPE html>
     <html ${head.htmlAttributes.toString()}>
@@ -26,6 +26,7 @@ const renderHtml = (head, extractor, markup, initialState = {}) => {
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
+        <link rel="canonical" href="${canonical}" />
 
         ${head.title.toString()}
         ${head.base.toString()}

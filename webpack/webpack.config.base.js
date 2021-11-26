@@ -23,7 +23,10 @@ const mergeBaseEntry = (...main) => {
 
   const configs = glob.sync(patten);
 
-  return [].concat(...main, ...configs).filter(Boolean);
+  return configs
+    .filter((path) => ['server', 'client'].every((key) => !path.includes(key)))
+    .concat(...main)
+    .filter(Boolean);
 };
 exports.mergeBaseEntry = mergeBaseEntry;
 

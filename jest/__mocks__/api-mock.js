@@ -1,4 +1,4 @@
-import appConfig from 'configs/app';
+import appConfig from 'configs/client';
 import nock from 'nock';
 
 const user = {
