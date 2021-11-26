@@ -73,17 +73,14 @@ class DotenvWebpackPlugin {
       return _env;
     }, {});
 
-    const formattedRaw = Object.keys(raw).reduce((env, key) => {
-      const _env = env;
-      _env[key] = JSON.stringify(raw[key]);
+    // const formattedRaw = Object.keys(raw).reduce((env, key) => {
+    //   const _env = env;
+    //   _env[key] = JSON.stringify(raw[key]);
 
-      return _env;
-    }, {});
+    //   return _env;
+    // }, {});
 
-    new DefinePlugin({
-      'process.env': formattedRaw, // fix: cannot read process object in local
-      ...formattedVars,
-    }).apply(compiler);
+    new DefinePlugin(formattedVars).apply(compiler);
   }
 }
 
