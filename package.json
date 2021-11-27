@@ -112,7 +112,7 @@
     "picocolors": "^1.0.0",
     "plop": "^2.7.6",
     "postcss": "^8.4.1",
-    "postcss-loader": "^6.2.0",
+    "postcss-loader": "^6.2.1",
     "prettier": "^2.4.1",
     "react-refresh": "^0.11.0",
     "sass": "^1.43.5",
