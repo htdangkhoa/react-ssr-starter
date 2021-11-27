@@ -15,18 +15,17 @@ const clearConsole = () =>
   process.stdout.write(process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H');
 
 const printInstructions = () => {
-  const { en0, Ethernet } = os.networkInterfaces();
+  const interfaces = os.networkInterfaces();
 
-  let interfaces = [];
+  const arrInfo = Object.values(interfaces).reduce((original, details) => {
+    let arr = original;
+    arr = arr.concat(...details.filter(({ family, internal }) => family === 'IPv4' && !internal));
 
-  if (Array.isArray(en0)) {
-    interfaces = en0;
-  } else if (Array.isArray(Ethernet)) {
-    interfaces = Ethernet;
-  }
+    return arr;
+  }, []);
 
   // get last IPv4
-  const [lastIPv4] = interfaces.filter(({ family }) => family === 'IPv4').splice(-1);
+  const [lastIPv4] = arrInfo;
 
   const host = !lastIPv4 ? '0.0.0.0' : lastIPv4.address;
 
