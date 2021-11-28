@@ -26,9 +26,9 @@
   </a>
 </p>
 
-## Requirements
+## Prerequisites
 
-- [node >= 12](https://nodejs.org/en/download/)
+- [Node.js](https://nodejs.org/en/download/): `^12.22.0`, `^14.17.0` or `>=16.0.0`
 
 ## Getting Started
 

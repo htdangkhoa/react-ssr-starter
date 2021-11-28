@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, ProvidePlugin } = require('webpack');
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
 
@@ -46,6 +46,13 @@ class DotenvWebpackPlugin {
    */
 
   apply(compiler) {
+    // it keeps your app from crashing when calling `process` on client-side
+    if (this.options.isWeb) {
+      new ProvidePlugin({
+        process: 'process/browser',
+      }).apply(compiler);
+    }
+
     // eslint-disable-next-line prefer-object-spread
     const vars = Object.assign({}, process.env);
 

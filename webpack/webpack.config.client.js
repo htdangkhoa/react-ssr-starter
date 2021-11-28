@@ -24,7 +24,7 @@ const getEntry = () => {
     entries.unshift('webpack-hot-middleware/client?reload=true&timeout=2000', 'react-refresh/runtime');
   }
 
-  return mergeBaseEntry(getPath('src/configs/client.js'), ...entries);
+  return mergeBaseEntry(...entries);
 };
 
 const getPlugins = () => {

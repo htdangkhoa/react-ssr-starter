@@ -21,7 +21,7 @@ const registerShutdown = (fn) => {
 };
 
 module.exports = merge(baseConfig(false), {
-  entry: mergeBaseEntry(getPath('src/configs/server.js'), getPath('src/server/index.js')),
+  entry: mergeBaseEntry(getPath('src/server/index.js')),
   target: 'node',
   watch: _isDev,
   watchOptions: {
