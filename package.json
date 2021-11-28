@@ -77,8 +77,8 @@
     "@loadable/webpack-plugin": "^5.15.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.2",
     "@svgr/webpack": "^5.5.0",
-    "@swc/core": "^1.2.112",
-    "@swc/jest": "^0.2.9",
+    "@swc/core": "^1.2.113",
+    "@swc/jest": "^0.2.10",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
@@ -110,10 +110,11 @@
     "mini-css-extract-plugin": "^2.4.5",
     "nock": "^13.2.1",
     "picocolors": "^1.0.0",
-    "plop": "^2.7.6",
-    "postcss": "^8.4.1",
+    "plop": "^3.0.0",
+    "postcss": "^8.4.4",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.0",
+    "process": "^0.11.10",
     "react-refresh": "^0.11.0",
     "sass": "^1.43.5",
     "sass-loader": "^12.3.0",
@@ -133,7 +134,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "engines": {
-    "node": ">= 12.x"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "browserslist": [
     ">0.2%",
