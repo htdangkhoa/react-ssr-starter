@@ -1,16 +1,31 @@
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const { spawn, execSync } = require('child_process');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
+const SpawnWebpackPlugin = require('./plugins/spawn-webpack-plugin');
 
-let nodeProcess;
+const _isDev = isDev();
+
+const registerShutdown = (fn) => {
+  let run = false;
+
+  const wrapper = () => {
+    if (!run) {
+      run = true;
+      fn();
+    }
+  };
+
+  process.on('SIGINT', wrapper);
+  process.on('SIGTERM', wrapper);
+  process.on('exit', wrapper);
+};
 
 module.exports = merge(baseConfig(false), {
   entry: mergeBaseEntry(getPath('src/server/index.js')),
   target: 'node',
-  watch: isDev(),
+  watch: _isDev,
   watchOptions: {
-    ignored: [getPath('src/client'), getPath('src/test-utils')],
+    ignored: [getPath('src/client'), getPath('src/test-utils'), '**/node_modules'],
   },
   output: {
     path: getPath('build'),
@@ -24,29 +39,11 @@ module.exports = merge(baseConfig(false), {
       allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
     }),
   ],
-  plugins: [
-    isDev() && {
-      apply(compiler) {
-        compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
-          if (nodeProcess) {
-            try {
-              if (process.platform === 'win32') {
-                execSync(`taskkill /pid ${nodeProcess.pid} /f /t`);
-              } else {
-                nodeProcess.kill();
-              }
-              nodeProcess = null;
-            } catch (e) {
-              console.error(e);
-            }
-          }
-          nodeProcess = spawn('npm', ['start'], {
-            shell: true,
-            env: process.env,
-            stdio: 'inherit',
-          });
-        });
-      },
-    },
-  ].filter(Boolean),
+  plugins: [new SpawnWebpackPlugin('npm', ['start'], { dev: _isDev })],
+});
+
+registerShutdown(() => {
+  process.on('SIGINT', () => {
+    process.exit(0);
+  });
 });

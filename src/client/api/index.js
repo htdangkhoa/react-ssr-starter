@@ -1,24 +1,6 @@
-import 'isomorphic-fetch';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import appConfig from 'configs/app';
-
-const request = (url, options) =>
-  new Promise((resolve, reject) =>
-    fetch(`${appConfig.baseUrl}${url}`, options)
-      .then((res) => {
-        if (!res.ok) {
-          const err = new Error(res.statusText);
-          err.response = res;
-
-          return reject(err);
-        }
-
-        return res.json();
-      })
-      .then((json) => resolve(json))
-      .catch((err) => reject(err)),
-  );
+import request from './request';
 
 export const getUsers = createAsyncThunk('getUsers', async () => {
   const res = await request('users');

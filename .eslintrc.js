@@ -1,3 +1,5 @@
+const { getAlias } = require('./webpack/webpack.config.base');
+
 module.exports = {
   env: {
     browser: true,
@@ -16,7 +18,10 @@ module.exports = {
   plugins: ['react', 'prettier'],
   settings: {
     'import/resolver': {
-      'babel-module': {},
+      alias: {
+        map: Object.entries(getAlias()),
+        extensions: ['.js', '.jsx', '.json'],
+      },
     },
   },
   globals: {
@@ -25,11 +30,24 @@ module.exports = {
     __DEV__: 'readonly',
   },
   rules: {
-    'prettier/prettier': 'error',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'no-console': 'off',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'react/jsx-props-no-spreading': 'off',
+    'react/function-component-definition': [
+      'error',
+      { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
+    ],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-underscore-dangle': 'off',
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
     'import/prefer-default-export': 'off',
+    'import/no-import-module-exports': ['error', { exceptions: ['**/*/*.jsx'] }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
   },
 };

@@ -1,0 +1,33 @@
+{
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "name": "React SSR Starter",
+  "short_name": "React SSR",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "The best react universal starter boilerplate in the world.",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}

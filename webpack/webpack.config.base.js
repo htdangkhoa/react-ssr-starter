@@ -1,11 +1,14 @@
 const { resolve } = require('path');
+const fs = require('fs');
 const glob = require('glob');
 const webpack = require('webpack');
-const DotenvWebpack = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin: CleanPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
 
 const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
@@ -20,12 +23,61 @@ const mergeBaseEntry = (...main) => {
 
   const configs = glob.sync(patten);
 
-  return [].concat(...main, ...configs).filter(Boolean);
+  return configs.concat(...main).filter(Boolean);
 };
 exports.mergeBaseEntry = mergeBaseEntry;
 
+const _isDev = isDev();
+
+const getPlugins = (isWeb) => {
+  const plugins = [
+    new webpack.ProgressPlugin(),
+    new webpack.DefinePlugin({
+      __CLIENT__: isWeb,
+      __SERVER__: !isWeb,
+      __DEV__: _isDev,
+    }),
+    new DotenvWebpackPlugin({ isWeb }),
+    new CleanPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        '**/*',
+        '!robots.txt',
+        '!android-icon-*',
+        '!apple-icon*',
+        '!browserconfig.xml',
+        '!favicon*',
+        '!ms-icon*',
+        '!icon-*.png',
+        '!icon-*.png',
+        '!site.webmanifest',
+      ],
+    }),
+  ];
+
+  if (process.env.NODE_ENV === 'analyze') {
+    plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+      }),
+    );
+  }
+
+  if (!_isDev) {
+    plugins.push(
+      new ESLintPlugin({
+        extensions: ['js', 'jsx'],
+        cache: true,
+        cacheLocation: getPath('.cache/.eslintcache'),
+        threads: 2,
+      }),
+    );
+  }
+
+  return plugins;
+};
+
 const getStyleLoaders = (isWeb, isModule) => {
-  const dev = isDev();
+  const dev = _isDev;
 
   const loaders = [
     {
@@ -59,44 +111,47 @@ const getStyleLoaders = (isWeb, isModule) => {
   return loaders;
 };
 
+const getAlias = () => ({
+  '~': getPath(),
+  configs: getPath('src/configs'),
+  client: getPath('src/client'),
+  server: getPath('src/server'),
+  'test-utils': getPath('src/test-utils'),
+});
+exports.getAlias = getAlias;
+
+const getOptimization = () => {
+  if (_isDev) return undefined;
+
+  return {
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          compress: { drop_console: true },
+        },
+      }),
+    ],
+  };
+};
+
+const swcConfig = JSON.parse(fs.readFileSync(getPath('.swcrc'), 'utf-8'));
+swcConfig.jsc.transform.react.development = _isDev;
+
 exports.baseConfig = (isWeb) => ({
-  mode: isDev() ? 'development' : 'production',
-  devtool: isDev() ? 'cheap-module-source-map' : false,
+  mode: _isDev ? 'development' : 'production',
+  devtool: _isDev ? 'cheap-module-source-map' : false,
   stats: 'minimal',
   output: { clean: !isWeb },
-  plugins: [
-    new webpack.ProgressPlugin(),
-    new webpack.DefinePlugin({
-      __CLIENT__: isWeb,
-      __SERVER__: !isWeb,
-      __DEV__: isDev(),
-    }),
-    new DotenvWebpack(),
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [
-        '**/*',
-        '!robots.txt',
-        '!android-icon-*',
-        '!apple-icon*',
-        '!browserconfig.xml',
-        '!favicon*',
-        '!ms-icon*',
-        '!icon-*.png',
-      ],
-    }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
-    }),
-  ].filter(Boolean),
+  plugins: getPlugins(isWeb),
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          caller: { target: isWeb ? 'web' : 'node' },
-        },
+        loader: 'swc-loader',
+        options: swcConfig,
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -116,8 +171,7 @@ exports.baseConfig = (isWeb) => ({
         },
       },
       {
-        // svg|woff2?|eot|ttf|otf
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(bmp|png|jpe?g|gif)$/i,
         type: 'asset',
         generator: {
           emit: isWeb,
@@ -140,11 +194,12 @@ exports.baseConfig = (isWeb) => ({
                 loader: '@svgr/webpack',
                 options: {
                   prettier: false,
-                  svgo: true,
+                  svgo: false,
                   svgoConfig: {
                     plugins: [{ removeViewBox: false }],
                   },
                   titleProp: true,
+                  ref: true,
                 },
               },
               {
@@ -167,18 +222,9 @@ exports.baseConfig = (isWeb) => ({
     ],
   },
   resolve: {
-    modules: ['backend', 'frontend', 'node_modules'],
+    modules: ['node_modules'],
     extensions: ['.json', '.js', '.jsx'],
+    alias: getAlias(),
   },
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        parallel: true,
-        extractComments: false,
-        terserOptions: {
-          compress: { drop_console: true },
-        },
-      }),
-    ],
-  },
+  optimization: getOptimization(),
 });

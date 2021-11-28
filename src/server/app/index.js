@@ -5,6 +5,7 @@ import favicon from 'serve-favicon';
 import compression from 'compression';
 import serve from 'serve-static';
 import render from '../render';
+import users from '../db/users.json';
 
 const app = PureHttp();
 
@@ -23,6 +24,29 @@ if (typeof webpackMiddleware === 'function') {
 
 app.get('/api/health', (req, res) => res.status(200).end());
 
-app.get('*', render);
+app.get('/api/users', (req, res) =>
+  res.json({
+    success: true,
+    users,
+  }),
+);
+
+app.get('/api/users/:id', (req, res) => {
+  const user = users.find((_user) => _user.id === parseInt(req.params.id, 10)) || {};
+
+  return res.json({
+    success: true,
+    user,
+  });
+});
+
+app.get(/^(?!.*^\/api\/)(.*)/, render);
+
+app.use((req, res, _next) =>
+  res.status(404).json({
+    success: false,
+    error: `Cannot ${req.method} ${req.path}`,
+  }),
+);
 
 export default app;

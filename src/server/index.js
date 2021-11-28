@@ -1,6 +1,12 @@
 import serverConfig from 'configs/server';
 import app from './app';
+import terminate from './terminate';
 
-app.listen(serverConfig.PORT, (err) => {
-  if (err) console.error(err.message);
-});
+app.listen(serverConfig.PORT, '0.0.0.0');
+
+const exitHandler = terminate(app);
+
+process.on('uncaughtException', exitHandler(1, 'Unexpected Error'));
+process.on('unhandledRejection', exitHandler(1, 'Unhandled Promise'));
+process.on('SIGTERM', exitHandler(0, 'SIGTERM'));
+process.on('SIGINT', exitHandler(0, 'SIGINT'));

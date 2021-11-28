@@ -1,85 +1,46 @@
 const { merge } = require('webpack-merge');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
 
+const _isDev = isDev();
+
 const config = baseConfig(true);
 
 const rules = [...config.module.rules];
-const [babelConfig] = rules.splice(0, 1);
-Object.assign(babelConfig.options, { plugins: [isDev() && require.resolve('react-refresh/babel')].filter(Boolean) });
-rules.shift(babelConfig);
+const [swcConfig] = rules.splice(0, 1);
+Object.assign(swcConfig.options.jsc.transform.react, { refresh: _isDev });
+rules.shift(swcConfig);
 
-module.exports = merge(config, {
-  entry: mergeBaseEntry(
-    isDev() && 'webpack-hot-middleware/client?reload=true&timeout=2000',
-    getPath('src/client/index.jsx'),
-  ),
-  output: {
-    path: getPath('public'),
-    filename: isDev() ? '[name].js' : '[name].[contenthash:8].js',
-    chunkFilename: isDev() ? '[id].js' : '[id].[contenthash:8].js',
-    publicPath: '/',
-  },
-  plugins: [
+const getEntry = () => {
+  const entries = [getPath('src/client/index.jsx')];
+
+  if (_isDev) {
+    entries.unshift('webpack-hot-middleware/client?reload=true&timeout=2000', 'react-refresh/runtime');
+  }
+
+  return mergeBaseEntry(...entries);
+};
+
+const getPlugins = () => {
+  const plugins = [
     new LoadablePlugin({ filename: 'stats.json', writeToDisk: true }),
     new MiniCssExtractPlugin({
-      filename: isDev() ? '[name].css' : '[name].[contenthash:8].css',
-      chunkFilename: isDev() ? '[id].css' : '[id].[contenthash:8].css',
+      filename: _isDev ? '[name].css' : '[name].[contenthash:8].css',
+      chunkFilename: _isDev ? '[id].css' : '[id].[contenthash:8].css',
     }),
-    new WebpackPwaManifest({
-      name: 'React SSR Starter',
-      short_name: 'React SSR',
-      description: 'The best react universal starter boilerplate in the world.',
-      background_color: '#ffffff',
-      filename: 'site.webmanifest',
-      theme_color: '#ffffff',
-      start_url: '.',
-      display: 'standalone',
-      inject: true,
-      ios: true,
-      icons: [
-        {
-          src: getPath('public/favicon-16x16.png'),
-          size: '16x16',
-          type: 'image/x-icon',
-        },
-        {
-          src: getPath('public/favicon-32x32.png'),
-          size: '32x32',
-          type: 'image/x-icon',
-        },
-        {
-          src: getPath('public/favicon-96x96.png'),
-          size: '96x96',
-          type: 'image/x-icon',
-        },
-        {
-          src: getPath('public/icon-192x192.png'),
-          size: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: getPath('public/icon-512x512.png'),
-          size: '512x512',
-          type: 'image/png',
-        },
-        {
-          src: getPath('public/icon-maskable.png'),
-          size: '512x512',
-          type: 'image/png',
-          purpose: 'maskable',
-        },
-      ],
-    }),
-    !isDev() &&
+  ];
+
+  if (_isDev) {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
+    plugins.push(new ReactRefreshPlugin());
+  } else {
+    plugins.push(
       new WorkboxWebpackPlugin.GenerateSW({
         mode: 'production',
         swDest: 'sw.js',
@@ -101,12 +62,17 @@ module.exports = merge(config, {
           },
         ],
       }),
-    isDev() && new webpack.HotModuleReplacementPlugin(),
-    isDev() && new ReactRefreshWebpackPlugin(),
-    isDev() && new FriendlyErrorsWebpackPlugin(),
-  ].filter(Boolean),
-  optimization: {
-    minimize: !isDev(),
+    );
+  }
+
+  return plugins;
+};
+
+const getOptimization = () => {
+  if (!_isDev) return undefined;
+
+  return {
+    minimize: !_isDev,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -117,8 +83,8 @@ module.exports = merge(config, {
           mangle: {
             safari10: true,
           },
-          keep_classnames: !isDev(),
-          keep_fnames: !isDev(),
+          keep_classnames: !_isDev,
+          keep_fnames: !_isDev,
           output: {
             ecma: 5,
             comments: false,
@@ -156,8 +122,18 @@ module.exports = merge(config, {
     runtimeChunk: {
       name: (entrypoint) => `runtime-${entrypoint.name}`,
     },
+  };
+};
+
+module.exports = merge(config, {
+  entry: getEntry(),
+  output: {
+    path: getPath('public'),
+    filename: _isDev ? '[name].js' : '[name].[contenthash:8].js',
+    chunkFilename: _isDev ? '[id].js' : '[id].[contenthash:8].js',
+    publicPath: '/',
   },
-  stats: {
-    children: isDev(),
-  },
+  plugins: getPlugins(),
+  optimization: getOptimization(),
+  stats: _isDev ? 'none' : { children: true },
 });

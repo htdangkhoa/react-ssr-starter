@@ -1,8 +1,8 @@
 import React, { memo, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Router } from '@reach/router';
+import { Routes, Route } from 'react-router-dom';
 
-import appConfig from 'configs/app';
+import appConfig from 'configs/client';
 import routes from 'client/routes';
 import Loading from 'client/components/Loading';
 
@@ -14,13 +14,22 @@ const App = () => (
 
     <Header />
 
-    <hr />
+    <main>
+      <Routes>
+        {routes.map(({ path, to, element: Element }, i) => {
+          const elementProps = {};
 
-    <Router primary={false} component={React.Fragment}>
-      {routes.map(({ component: Component, ...props }, i) => (
-        <Component {...props} key={i.toString()} />
-      ))}
-    </Router>
+          // handle redirects with Navigate component
+          // reference: https://gist.github.com/htdangkhoa/5b3407c749b6fb8cf05cfb591ec3ef07
+          if (typeof to === 'string') {
+            elementProps.to = to;
+            elementProps.replace = true;
+          }
+
+          return <Route path={path} element={<Element {...elementProps} />} key={i.toString()} />;
+        })}
+      </Routes>
+    </main>
   </Suspense>
 );
 

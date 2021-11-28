@@ -16,12 +16,13 @@ const userListSlice = createSlice({
         state.loading = STATUS.LOADING;
       })
       .addCase(getUsers.rejected, (state, action) => {
+        console.log(action);
         state.loading = STATUS.FAILED;
-        state.error = action.payload;
+        state.error = action.error;
       })
       .addCase(getUsers.fulfilled, (state, action) => {
         state.loading = STATUS.SUCCEED;
-        state.users = [].concat(...action.payload);
+        state.users = [].concat(...action.payload.users);
       });
   },
 });

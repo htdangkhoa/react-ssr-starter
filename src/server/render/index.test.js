@@ -5,8 +5,14 @@ const request = supertest(app);
 
 describe('server side rendering', () => {
   describe('GET /', () => {
+    it('should redirect to /home', async () => {
+      await request.get('/').expect('Location', '/home');
+    });
+  });
+
+  describe('GET /home', () => {
     it('should render html', async () => {
-      await request.get('/').expect('content-type', /text\/html/i);
+      await request.get('/home').expect('content-type', /text\/html/i);
     });
   });
 
