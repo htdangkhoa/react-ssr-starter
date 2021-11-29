@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@loadable/webpack-plugin": "^5.15.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@swc/core": "^1.2.113",
     "@swc/jest": "^0.2.10",
