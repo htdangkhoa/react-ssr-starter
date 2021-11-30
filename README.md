@@ -151,6 +151,57 @@ REACT_APP_FOO=$DOMAIN/foo
 REACT_APP_BAR=$DOMAIN/bar
 ```
 
+## Adding Images, Fonts, and Files
+
+With webpack, using static assets like images and fonts works similarly to CSS.
+
+You can **`import`** **a file right in a JavaScript module**. This tells webpack to include that file in the bundle. Unlike CSS imports, importing a file gives you a string value. This value is the final path you can reference in your code, e.g. as the `src` attribute of an image or the `href` of a link to a PDF.
+
+To reduce the number of requests to the server, importing images that are less than 10,000 bytes returns a [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) instead of a path. This applies to the following file extensions: bmp, gif, jpg, jpeg, and png. SVG files are excluded for sprite. You can control the 10,000 byte threshold by setting the `IMAGE_INLINE_SIZE_LIMIT` environment variable.
+
+Here is an example:
+
+```js
+import React from 'react';
+import logo from './logo.png'; // Tell webpack this JS file uses this image
+
+console.log(logo); // /70a4f6b392fa19ff6912.png
+
+function Header() {
+  // Import result is the URL of your image
+  return <img src={logo} alt='Logo' />;
+}
+
+export default Header;
+```
+
+This ensures that when the project is built, webpack will correctly move the images into the build folder, and provide us with correct paths.
+
+This works in CSS too:
+
+```css
+.Logo {
+  background-image: url(./logo.png);
+}
+```
+
+### Adding SVGs
+
+One way to add SVG files was described in the section above. You can also import SVGs directly as React components. You can use either of the two approaches. In your code it would look like this:
+
+```js
+import { ReactComponent as Logo } from './logo.svg';
+
+function App() {
+  return (
+    <div>
+      {/* Logo is an actual React component */}
+      <Logo />
+    </div>
+  );
+}
+```
+
 ## Generators
 
 ### Usage

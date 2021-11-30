@@ -10,6 +10,9 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
 
+// by default, a file with size less than 10000 bytes will be inlined as a data URI and emitted as a separate file otherwise
+const IMAGE_INLINE_SIZE_LIMIT = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000', 10);
+
 const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
 
@@ -163,36 +166,38 @@ exports.baseConfig = (isWeb) => ({
         use: getStyleLoaders(isWeb, true),
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)$/i,
+        test: [/\.avif$/],
+        type: 'asset',
+        generator: {
+          emit: isWeb,
+          publicPath: '/',
+          dataUrl: { mimetype: 'image/avif' },
+        },
+        parser: {
+          dataUrlCondition: { maxSize: IMAGE_INLINE_SIZE_LIMIT },
+        },
+      },
+      {
+        test: /\.(bmp|png|jpe?g|gif|woff2?|eot|ttf|otf)$/,
         type: 'asset',
         generator: {
           emit: isWeb,
           publicPath: '/',
         },
-      },
-      {
-        test: /\.(bmp|png|jpe?g|gif)$/i,
-        type: 'asset',
-        generator: {
-          emit: isWeb,
-          publicPath: '/',
+        parser: {
+          dataUrlCondition: { maxSize: IMAGE_INLINE_SIZE_LIMIT },
         },
       },
       {
-        test: /\.svg?$/,
+        test: /\.svg$/,
         oneOf: [
           {
-            type: 'asset',
-            issuer: {
-              and: [/\.(sa|sc|c)ss$/],
-            },
-            generator: { emit: isWeb },
-          },
-          {
+            issuer: /\.jsx?$/,
             use: [
               {
                 loader: '@svgr/webpack',
                 options: {
+                  exportType: 'named',
                   prettier: false,
                   svgo: false,
                   svgoConfig: {
@@ -203,19 +208,16 @@ exports.baseConfig = (isWeb) => ({
                 },
               },
               {
-                loader: 'file-loader',
-                options: {
-                  publicPath: '/',
-                  emitFile: isWeb,
-                },
+                loader: require.resolve('./loaders/url-loader'),
               },
             ],
-            type: 'javascript/auto',
-            issuer: {
-              // use as the ReactComponent
-              and: [/\.(jsx?)$/],
+          },
+          {
+            type: 'asset',
+            generator: {
+              emit: isWeb,
+              publicPath: '/',
             },
-            generator: { emit: isWeb },
           },
         ],
       },
