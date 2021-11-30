@@ -10,6 +10,9 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
 
+// by default, a file with size less than 10000 bytes will be inlined as a data URI and emitted as a separate file otherwise
+const IMAGE_INLINE_SIZE_LIMIT = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000', 10);
+
 const isDev = () => !['production', 'test', 'analyze'].includes(process.env.NODE_ENV);
 exports.isDev = isDev;
 
@@ -163,19 +166,26 @@ exports.baseConfig = (isWeb) => ({
         use: getStyleLoaders(isWeb, true),
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)$/i,
+        test: [/\.avif$/],
+        type: 'asset',
+        generator: {
+          emit: isWeb,
+          publicPath: '/',
+          dataUrl: { mimetype: 'image/avif' },
+        },
+        parser: {
+          dataUrlCondition: { maxSize: IMAGE_INLINE_SIZE_LIMIT },
+        },
+      },
+      {
+        test: /\.(bmp|png|jpe?g|gif|woff2?|eot|ttf|otf)$/,
         type: 'asset',
         generator: {
           emit: isWeb,
           publicPath: '/',
         },
-      },
-      {
-        test: /\.(bmp|png|jpe?g|gif)$/,
-        type: 'asset',
-        generator: {
-          emit: isWeb,
-          publicPath: '/',
+        parser: {
+          dataUrlCondition: { maxSize: IMAGE_INLINE_SIZE_LIMIT },
         },
       },
       {
@@ -183,27 +193,30 @@ exports.baseConfig = (isWeb) => ({
         oneOf: [
           {
             issuer: /\.jsx?$/,
-            loader: '@svgr/webpack',
-            resourceQuery: { not: [/url/] },
-            options: {
-              exportType: 'named',
-              prettier: false,
-              svgo: false,
-              svgoConfig: {
-                plugins: [{ removeViewBox: false }],
+            use: [
+              {
+                loader: '@svgr/webpack',
+                options: {
+                  exportType: 'named',
+                  prettier: false,
+                  svgo: false,
+                  svgoConfig: {
+                    plugins: [{ removeViewBox: false }],
+                  },
+                  titleProp: true,
+                  ref: true,
+                },
               },
-              titleProp: true,
-              ref: true,
-            },
+              {
+                loader: require.resolve('./loaders/url-loader'),
+              },
+            ],
           },
           {
             type: 'asset',
-            resourceQuery: /url/,
-            parser: {
-              dataUrlCondition: {
-                // by default, a file with size less than 5kb will be inlined as a data URI and emitted as a separate file otherwise
-                maxSize: 5 * 1024,
-              },
+            generator: {
+              emit: isWeb,
+              publicPath: '/',
             },
           },
         ],

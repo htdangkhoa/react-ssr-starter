@@ -41,7 +41,6 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-underscore-dangle': 'off',
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
-    'import/no-unresolved': ['error', { ignore: [`.svg\\?url$`] }],
     'import/prefer-default-export': 'off',
     'import/no-import-module-exports': ['error', { exceptions: ['**/*/*.jsx'] }],
     'import/no-extraneous-dependencies': [
