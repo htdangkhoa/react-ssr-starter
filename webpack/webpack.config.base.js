@@ -171,7 +171,7 @@ exports.baseConfig = (isWeb) => ({
         },
       },
       {
-        test: /\.(bmp|png|jpe?g|gif)$/i,
+        test: /\.(bmp|png|jpe?g|gif)$/,
         type: 'asset',
         generator: {
           emit: isWeb,
@@ -179,43 +179,32 @@ exports.baseConfig = (isWeb) => ({
         },
       },
       {
-        test: /\.svg?$/,
+        test: /\.svg$/,
         oneOf: [
           {
-            type: 'asset',
-            issuer: {
-              and: [/\.(sa|sc|c)ss$/],
+            issuer: /\.jsx?$/,
+            loader: '@svgr/webpack',
+            resourceQuery: { not: [/url/] },
+            options: {
+              exportType: 'named',
+              prettier: false,
+              svgo: false,
+              svgoConfig: {
+                plugins: [{ removeViewBox: false }],
+              },
+              titleProp: true,
+              ref: true,
             },
-            generator: { emit: isWeb },
           },
           {
-            use: [
-              {
-                loader: '@svgr/webpack',
-                options: {
-                  prettier: false,
-                  svgo: false,
-                  svgoConfig: {
-                    plugins: [{ removeViewBox: false }],
-                  },
-                  titleProp: true,
-                  ref: true,
-                },
+            type: 'asset',
+            resourceQuery: /url/,
+            parser: {
+              dataUrlCondition: {
+                // by default, a file with size less than 5kb will be inlined as a data URI and emitted as a separate file otherwise
+                maxSize: 5 * 1024,
               },
-              {
-                loader: 'file-loader',
-                options: {
-                  publicPath: '/',
-                  emitFile: isWeb,
-                },
-              },
-            ],
-            type: 'javascript/auto',
-            issuer: {
-              // use as the ReactComponent
-              and: [/\.(jsx?)$/],
             },
-            generator: { emit: isWeb },
           },
         ],
       },
