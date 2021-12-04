@@ -109,7 +109,7 @@
     "mini-css-extract-plugin": "^2.4.5",
     "nock": "^13.2.1",
     "picocolors": "^1.0.0",
-    "plop": "^3.0.1",
+    "plop": "^3.0.2",
     "postcss": "^8.4.4",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.0",
