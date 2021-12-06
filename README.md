@@ -151,6 +151,63 @@ REACT_APP_FOO=$DOMAIN/foo
 REACT_APP_BAR=$DOMAIN/bar
 ```
 
+## Configurations
+
+You can store your configurations in `src/configs/client.js` for client-side, `src/configs/server.js` for server-side. `src/configs/constants.js` is for constants.
+
+You can access the correct configuration with:
+
+```js
+import configs from 'configs/client'; // for client-side
+import configs from 'configs/server'; // for server-side
+import constants from 'configs/constants';
+
+// ...
+```
+
+## Adding Styles
+
+The starter supports CSS, SASS and [CSS modules](https://github.com/css-Modules/css-Modules) is auto enabled for all files the `[name].module.*` naming convention. I use [PostCSS](https://github.com/webpack-contrib/postcss-loader) plugin to parse CSS and add autoprefixer to your stylesheet. You can access your stylesheet with two ways.
+
+```css
+/* custom button style */
+
+.Button {
+  padding: 20px;
+}
+```
+
+### With CSS modules
+
+```jsx
+import styles from './styles.module.scss';
+
+function Button() {
+  return <div className={styles.Button} />;
+}
+```
+
+### Without CSS modules
+
+```jsx
+import './styles.scss';
+
+function Button() {
+  return <div className='Button' />;
+}
+```
+
+You can also add the vendor CSS frameworks or global styles, just import it through the `src/client/app/index.jsx` file (app root component). For example:
+
+```jsx
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '<your-global-styles>.css';
+
+function App() {
+  // ...
+}
+```
+
 ## Adding Images, Fonts, and Files
 
 With webpack, using static assets like images and fonts works similarly to CSS.
