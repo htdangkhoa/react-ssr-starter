@@ -6729,10 +6729,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-plop@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/plop/-/plop-3.0.2.tgz#babd613c0efc0a650b3325a9917fa325f088e044"
-  integrity sha512-jP9JPwISnwd+wQvVv4JbCWI1JoNvwSATneVvXtsuDf3dQdr4m1C/OEpPhHt6h0mB1i0CJ+nsVHqzcCNgxRvTEA==
+plop@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/plop/-/plop-3.0.3.tgz#2f007803b33fa5f772659426b95f344630280597"
+  integrity sha512-vndx7VcXaSN3J6XiiG5K8rtJm2xRezxkKSWIFuUnuQRaZaVqZdB3/2MQ1VwgHILKfSf1eKDMKRxMcbma3NPMqw==
   dependencies:
     "@types/liftoff" "^4.0.0"
     chalk "^5.0.0"
