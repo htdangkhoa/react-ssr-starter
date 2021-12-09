@@ -78,7 +78,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^6.1.1",
     "@swc/core": "^1.2.118",
-    "@swc/jest": "^0.2.11",
+    "@swc/jest": "^0.2.12",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.16.0",
     "@testing-library/react": "^12.1.2",
