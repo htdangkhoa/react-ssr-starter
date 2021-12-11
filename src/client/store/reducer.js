@@ -3,9 +3,11 @@ import { combineReducers } from '@reduxjs/toolkit';
 import userList from './slices/user-list-slice';
 import userInfo from './slices/user-info-slice';
 
-const reducer = combineReducers({
-  userList,
-  userInfo,
-});
+const configurationReducers = (routerReducer) =>
+  combineReducers({
+    userList,
+    userInfo,
+    router: routerReducer,
+  });
 
-export default reducer;
+export default configurationReducers;

@@ -9,13 +9,13 @@ import { Provider } from 'react-redux';
 import ssrPrepass from 'react-ssr-prepass';
 
 import App from 'client/app';
-import createStore from 'client/store';
+import configurationStore from 'client/store';
 import routes from 'client/routes';
 
 import renderHtml from './render-html';
 
 const renderController = async (req, res) => {
-  const store = createStore();
+  const { store } = configurationStore({ url: req.url });
 
   const contexts = [];
 

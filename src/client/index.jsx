@@ -1,31 +1,31 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { HistoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { loadableReady } from '@loadable/component';
 
 import './assets/styles/index.scss';
 
 import App from './app';
-import createStore from './store';
+import configurationStore from './store';
 import reportWebVitals from './report-web-vitals';
 import * as serviceWorker from './service-worker';
 
 const initialState = window.__INITIAL_STATE__;
 delete window.__INITIAL_STATE__;
 
-const store = createStore({ initialState });
+const { store, history } = configurationStore({ initialState });
 
 const render = () => {
   ReactDOM.hydrate(
     <StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
+        <HistoryRouter history={history}>
           <HelmetProvider>
             <App />
           </HelmetProvider>
-        </BrowserRouter>
+        </HistoryRouter>
       </Provider>
     </StrictMode>,
     document.getElementById('app'),
