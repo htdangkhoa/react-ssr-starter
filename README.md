@@ -152,6 +152,8 @@ REACT_APP_FOO=$DOMAIN/foo
 REACT_APP_BAR=$DOMAIN/bar
 ```
 
+> **NOTE:** Support [Google Search Console verification code](https://www.youtube.com/watch?v=RktlwdM3k1s) with `GOOGLE_SITE_VERIFICATION` environment variable.
+
 ## Configurations
 
 You can store your configurations in `src/configs/client.js` for client-side, `src/configs/server.js` for server-side. `src/configs/constants.js` is for constants.
