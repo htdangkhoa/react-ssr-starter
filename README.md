@@ -54,6 +54,7 @@ Using [SWC](https://swc.rs) will give build times **1.5x** faster for the server
 - [Redux](https://redux.js.org) - A Predictable State Container for JS Apps.
 - [Redux Toolkit](https://redux-toolkit.js.org) - The official, opinionated, batteries-included toolset for efficient Redux development.
 - [React Router](https://github.com/remix-run/react-router) - Declarative routing for React.
+- [redux-first-history](https://github.com/salvoravida/redux-first-history) - Redux history binding support [react-router](https://github.com/remix-run/react-router).
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies.
 - [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify.
 - [Webpack](https://webpack.js.org) - App bundling.
@@ -150,6 +151,8 @@ DOMAIN=www.example.com
 REACT_APP_FOO=$DOMAIN/foo
 REACT_APP_BAR=$DOMAIN/bar
 ```
+
+> **NOTE:** Support [Google Search Console verification code](https://www.youtube.com/watch?v=RktlwdM3k1s) with `GOOGLE_SITE_VERIFICATION` environment variable.
 
 ## Configurations
 

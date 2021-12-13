@@ -5,11 +5,9 @@ import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { render as rtlRender } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import createStore from 'client/store';
+import configurationStore from 'client/store';
 
-const store = createStore();
-
-export const ProviderWithStore = ({ children }) => <Provider store={store}>{children}</Provider>;
+const store = configurationStore();
 
 export const render = (ui, { path = '/', useRouter = false, useStore = true } = {}) => {
   const Router = ({ children }) =>
@@ -17,9 +15,9 @@ export const render = (ui, { path = '/', useRouter = false, useStore = true } = 
 
   const Component = ({ children }) =>
     useStore ? (
-      <ProviderWithStore>
+      <Provider store={store}>
         <Router>{children}</Router>
-      </ProviderWithStore>
+      </Provider>
     ) : (
       <Router>{children}</Router>
     );

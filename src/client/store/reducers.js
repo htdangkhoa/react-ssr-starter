@@ -3,9 +3,9 @@ import { combineReducers } from '@reduxjs/toolkit';
 import userList from './slices/user-list-slice';
 import userInfo from './slices/user-info-slice';
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   userList,
   userInfo,
 });
 
-export default reducer;
+export default reducers;
