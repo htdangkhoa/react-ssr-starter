@@ -7,9 +7,9 @@ import { render as rtlRender } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import configurationStore from 'client/store';
 
-export const render = (ui, { path = '/', useRouter = false, useStore = true } = {}) => {
-  const { store } = configurationStore({ url: path });
+const store = configurationStore();
 
+export const render = (ui, { path = '/', useRouter = false, useStore = true } = {}) => {
   const Router = ({ children }) =>
     !useRouter ? children : <MemoryRouter initialEntries={[path]}>{children}</MemoryRouter>;
 

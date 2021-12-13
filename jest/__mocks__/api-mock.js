@@ -1,5 +1,9 @@
-import appConfig from 'configs/client';
+import httpAdapter from 'axios/lib/adapters/http';
+import axios from 'axios';
 import nock from 'nock';
+import appConfig from 'configs/client';
+
+axios.defaults.adapter = httpAdapter;
 
 const user = {
   id: 1,

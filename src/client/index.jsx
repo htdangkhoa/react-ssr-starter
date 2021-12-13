@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { HistoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { loadableReady } from '@loadable/component';
 
@@ -15,17 +15,17 @@ import * as serviceWorker from './service-worker';
 const initialState = window.__INITIAL_STATE__;
 delete window.__INITIAL_STATE__;
 
-const { store, history } = configurationStore({ initialState });
+const store = configurationStore({ initialState });
 
 const render = () => {
   ReactDOM.hydrate(
     <StrictMode>
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <BrowserRouter>
           <HelmetProvider>
             <App />
           </HelmetProvider>
-        </HistoryRouter>
+        </BrowserRouter>
       </Provider>
     </StrictMode>,
     document.getElementById('app'),

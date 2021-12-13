@@ -1,25 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createReduxHistoryContext } from 'redux-first-history';
-import { createMemoryHistory, createBrowserHistory } from 'history';
-import configurationReducers from './reducer';
+import reducers from './reducers';
 
-const configurationStore = ({ initialState, url }) => {
-  const initialHistory = __SERVER__ ? createMemoryHistory({ initialEntries: [url || '/'] }) : createBrowserHistory();
-
-  const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
-    history: initialHistory,
-  });
-
+const configurationStore = ({ initialState } = {}) => {
   const store = configureStore({
     preloadedState: initialState,
-    reducer: configurationReducers(routerReducer),
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routerMiddleware),
+    reducer: reducers,
     devTools: __DEV__,
   });
 
-  const history = createReduxHistory(store);
-
-  return { store, history };
+  return store;
 };
 
 export default configurationStore;

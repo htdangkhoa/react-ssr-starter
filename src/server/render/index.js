@@ -15,7 +15,7 @@ import routes from 'client/routes';
 import renderHtml from './render-html';
 
 const renderController = async (req, res) => {
-  const { store } = configurationStore({ url: req.url });
+  const store = configurationStore();
 
   const contexts = [];
 
