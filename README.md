@@ -56,7 +56,7 @@ Using [SWC](https://swc.rs) will give build times **1.5x** faster for the server
 - [React Router](https://github.com/remix-run/react-router) - Declarative routing for React.
 - [redux-first-history](https://github.com/salvoravida/redux-first-history) - Redux history binding support [react-router](https://github.com/remix-run/react-router).
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies.
-- [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify.
+- [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js.
 - [Webpack](https://webpack.js.org) - App bundling.
 - [SWC](https://swc.rs) - A super-fast compiler written in rust, producing widely-supported javascript from modern standards and typescript.
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state.
