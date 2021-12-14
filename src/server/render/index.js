@@ -13,6 +13,7 @@ import configurationStore from 'client/store';
 import routes from 'client/routes';
 
 import renderHtml from './render-html';
+import sitemapGenerator from './sitemap-generator';
 
 const renderController = async (req, res) => {
   const store = configurationStore();
@@ -20,7 +21,11 @@ const renderController = async (req, res) => {
   const contexts = [];
 
   const loadBranchData = () => {
-    const promises = matchRoutes(routes, req.path).map(({ route, params }) => {
+    const routesMatch = matchRoutes(routes, req.path);
+
+    sitemapGenerator(req, routesMatch);
+
+    const promises = routesMatch.map(({ route, params }) => {
       // handling redirects in react-router v6
       // reference: https://gist.github.com/htdangkhoa/5b3407c749b6fb8cf05cfb591ec3ef07#handling-redirects-in-react-router-v6
       if (typeof route.to === 'string') {
