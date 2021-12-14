@@ -1,4 +1,5 @@
-const description = 'The best react universal starter boilerplate in the world.';
+const description =
+  '🔥 ⚛️ A React boilerplate for a universal web app with a highly scalable, offline-first foundation and our focus on performance and best practices.';
 
 const appConfig = {
   baseUrl: process.env.REACT_APP_BASE_URL || 'http://localhost:9090/api/',
