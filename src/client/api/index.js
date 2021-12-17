@@ -3,13 +3,21 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import request from './request';
 
 export const getUsers = createAsyncThunk('getUsers', async () => {
-  const res = await request('users');
+  try {
+    const { data } = await request.get('users');
 
-  return res;
+    return data;
+  } catch (error) {
+    throw error.response.data.error;
+  }
 });
 
 export const getUser = createAsyncThunk('getUser', async (id) => {
-  const res = await request(`users/${id}`);
+  try {
+    const { data } = await request.get(`users/${id}`);
 
-  return res;
+    return data;
+  } catch (error) {
+    throw error.response.data.error;
+  }
 });

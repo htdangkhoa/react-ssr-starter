@@ -54,8 +54,9 @@ Using [SWC](https://swc.rs) will give build times **1.5x** faster for the server
 - [Redux](https://redux.js.org) - A Predictable State Container for JS Apps.
 - [Redux Toolkit](https://redux-toolkit.js.org) - The official, opinionated, batteries-included toolset for efficient Redux development.
 - [React Router](https://github.com/remix-run/react-router) - Declarative routing for React.
+- [redux-first-history](https://github.com/salvoravida/redux-first-history) - Redux history binding support [react-router](https://github.com/remix-run/react-router).
 - [pure-http](https://github.com/htdangkhoa/pure-http) - The simple web framework for Node.js with zero dependencies.
-- [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - Isomorphic WHATWG Fetch API, for Node & Browserify.
+- [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js.
 - [Webpack](https://webpack.js.org) - App bundling.
 - [SWC](https://swc.rs) - A super-fast compiler written in rust, producing widely-supported javascript from modern standards and typescript.
 - [React Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh) - Fast refresh components without losing their state.
@@ -149,6 +150,116 @@ Or expand variables local to the current .env file:
 DOMAIN=www.example.com
 REACT_APP_FOO=$DOMAIN/foo
 REACT_APP_BAR=$DOMAIN/bar
+```
+
+> **NOTE:** Support [Google Search Console verification code](https://www.youtube.com/watch?v=RktlwdM3k1s) with `GOOGLE_SITE_VERIFICATION` environment variable.
+
+## Configurations
+
+You can store your configurations in `src/configs/client.js` for client-side, `src/configs/server.js` for server-side. `src/configs/constants.js` is for constants.
+
+You can access the correct configuration with:
+
+```js
+import configs from 'configs/client'; // for client-side
+import configs from 'configs/server'; // for server-side
+import constants from 'configs/constants';
+
+// ...
+```
+
+## Adding Styles
+
+The starter supports CSS, SASS and [CSS modules](https://github.com/css-Modules/css-Modules) is auto enabled for all files the `[name].module.*` naming convention. I use [PostCSS](https://github.com/webpack-contrib/postcss-loader) plugin to parse CSS and add autoprefixer to your stylesheet. You can access your stylesheet with two ways.
+
+```css
+/* custom button style */
+
+.Button {
+  padding: 20px;
+}
+```
+
+### With CSS modules
+
+```jsx
+import styles from './styles.module.scss';
+
+function Button() {
+  return <div className={styles.Button} />;
+}
+```
+
+### Without CSS modules
+
+```jsx
+import './styles.scss';
+
+function Button() {
+  return <div className='Button' />;
+}
+```
+
+You can also add the vendor CSS frameworks or global styles, just import it through the `src/client/app/index.jsx` file (app root component). For example:
+
+```jsx
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '<your-global-styles>.css';
+
+function App() {
+  // ...
+}
+```
+
+## Adding Images, Fonts, and Files
+
+With webpack, using static assets like images and fonts works similarly to CSS.
+
+You can **`import`** **a file right in a JavaScript module**. This tells webpack to include that file in the bundle. Unlike CSS imports, importing a file gives you a string value. This value is the final path you can reference in your code, e.g. as the `src` attribute of an image or the `href` of a link to a PDF.
+
+To reduce the number of requests to the server, importing images that are less than 10,000 bytes returns a [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) instead of a path. This applies to the following file extensions: bmp, gif, jpg, jpeg, and png. SVG files are excluded for sprite. You can control the 10,000 byte threshold by setting the `IMAGE_INLINE_SIZE_LIMIT` environment variable.
+
+Here is an example:
+
+```js
+import React from 'react';
+import logo from './logo.png'; // Tell webpack this JS file uses this image
+
+console.log(logo); // /70a4f6b392fa19ff6912.png
+
+function Header() {
+  // Import result is the URL of your image
+  return <img src={logo} alt='Logo' />;
+}
+
+export default Header;
+```
+
+This ensures that when the project is built, webpack will correctly move the images into the build folder, and provide us with correct paths.
+
+This works in CSS too:
+
+```css
+.Logo {
+  background-image: url(./logo.png);
+}
+```
+
+### Adding SVGs
+
+One way to add SVG files was described in the section above. You can also import SVGs directly as React components. You can use either of the two approaches. In your code it would look like this:
+
+```js
+import { ReactComponent as Logo } from './logo.svg';
+
+function App() {
+  return (
+    <div>
+      {/* Logo is an actual React component */}
+      <Logo />
+    </div>
+  );
+}
 ```
 
 ## Generators

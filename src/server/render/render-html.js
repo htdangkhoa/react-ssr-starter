@@ -2,6 +2,12 @@ import serialize from 'serialize-javascript';
 import { minify } from 'html-minifier';
 
 const renderHtml = (head, canonical, extractor, markup, initialState = {}) => {
+  let googleMetaTag = '';
+
+  if (process.env.GOOGLE_SITE_VERIFICATION) {
+    googleMetaTag = `<meta name="google-site-verification" content="${process.env.GOOGLE_SITE_VERIFICATION}" />`;
+  }
+
   const html = `
     <!DOCTYPE html>
     <html ${head.htmlAttributes.toString()}>
@@ -27,6 +33,8 @@ const renderHtml = (head, canonical, extractor, markup, initialState = {}) => {
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
         <link rel="canonical" href="${canonical}" />
+        
+        ${googleMetaTag}
 
         ${head.title.toString()}
         ${head.base.toString()}

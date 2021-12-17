@@ -12,7 +12,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 13,
     sourceType: 'module',
   },
   plugins: ['react', 'prettier'],
@@ -30,7 +30,6 @@ module.exports = {
     __DEV__: 'readonly',
   },
   rules: {
-    'no-console': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'react/jsx-props-no-spreading': 'off',
@@ -38,16 +37,22 @@ module.exports = {
       'error',
       { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
     ],
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    'no-underscore-dangle': 'off',
-    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
     'import/prefer-default-export': 'off',
-    'import/no-import-module-exports': ['error', { exceptions: ['**/*/*.jsx'] }],
+    'import/no-import-module-exports': [
+      'error',
+      {
+        exceptions: ['**/src/client/index.jsx'], // only use for `module.hot` in src/client/index.jsx
+      },
+    ],
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: true,
       },
     ],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'no-underscore-dangle': 'off',
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
+    'no-console': 'off',
   },
 };
