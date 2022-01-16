@@ -1,9 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import os from 'os';
 import webpack from 'webpack';
 import whm from 'webpack-hot-middleware';
 import wdm from 'webpack-dev-middleware';
-import formatWebpackMessages from 'webpack-format-messages';
+import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
+import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import colors from 'picocolors';
 
 import serverConfig from 'configs/server';
@@ -38,7 +38,7 @@ const printInstructions = () => {
 
 const compiler = webpack(config);
 
-const webpackMiddleware = () => {
+const webpackMiddleware = (wsServer) => {
   let isFirstCompile = true;
 
   compiler.hooks.invalid.tap('invalid', () => {
@@ -54,7 +54,13 @@ const webpackMiddleware = () => {
       clearConsole();
     }
 
-    const messages = formatWebpackMessages(stats);
+    const statsData = stats.toJson({
+      all: false,
+      warnings: true,
+      errors: true,
+    });
+
+    const messages = formatWebpackMessages(statsData);
 
     const isSuccessful = !messages.errors.length && !messages.warnings.length;
 
@@ -71,25 +77,38 @@ const webpackMiddleware = () => {
       if (messages.errors.length > 1) {
         messages.errors.length = 1;
       }
+
+      const errors = messages.errors.join('\n\n');
+
       console.log(colors.red('Failed to compile.\n'));
-      console.log(messages.errors.join('\n\n'));
+      console.log(errors);
+
+      wsServer.on('connection', (ws) => {
+        ws.send(JSON.stringify({ message: errors, type: 'error' }));
+      });
 
       return;
     }
 
     if (messages.warnings.length) {
       console.log(colors.yellow('Compiled with warnings.\n'));
-      console.log(messages.warnings.join('\n\n'));
 
-      // Teach some ESLint tricks.
+      const warnings = messages.warnings.join('\n\n');
+
+      console.log(warnings);
       console.log(`\nSearch for the ${colors.underline(colors.yellow('keywords'))} to learn more about each warning.`);
       console.log(`To ignore, add ${colors.cyan('// eslint-disable-next-line')} to the line before.\n`);
+
+      wsServer.on('connection', (ws) => {
+        ws.send(JSON.stringify({ message: warnings, type: 'warn' }));
+      });
     }
   });
 
   return [
     whm(compiler, { log: false, path: '/__webpack_hmr', heartbeat: 200 }),
     wdm(compiler, { serverSideRender: true, writeToDisk: true }),
+    errorOverlayMiddleware(),
   ];
 };
 

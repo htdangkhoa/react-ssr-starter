@@ -21,7 +21,11 @@ const getEntry = () => {
   const entries = [getPath('src/client/index.jsx')];
 
   if (_isDev) {
-    entries.unshift('webpack-hot-middleware/client?reload=true&timeout=2000', 'react-refresh/runtime');
+    entries.unshift(
+      require.resolve('./entries/react-error-overlay'),
+      'webpack-hot-middleware/client?reload=true&timeout=2000',
+      'react-refresh/runtime',
+    );
   }
 
   return mergeBaseEntry(...entries);

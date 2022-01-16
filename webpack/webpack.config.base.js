@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin: CleanPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const eslintFormatter = require('react-dev-utils/eslintFormatter');
 
 const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
 
@@ -65,18 +66,19 @@ const getPlugins = (isWeb) => {
     );
   }
 
-  if (!_isDev) {
-    plugins.push(
-      new ESLintPlugin({
-        extensions: ['js', 'jsx'],
-        cache: true,
-        cacheLocation: getPath('.cache/.eslintcache'),
-        threads: 2,
-      }),
-    );
-  }
+  plugins.push(
+    new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+      cache: true,
+      cacheLocation: getPath('.cache/.eslintcache'),
+      threads: 2,
+      formatter: eslintFormatter,
+      failOnError: !isWeb || !_isDev,
+      exclude: ['node_modules', !isWeb && 'src/client', isWeb && 'src/server'].filter(Boolean),
+    }),
+  );
 
-  return plugins;
+  return plugins.filter(Boolean);
 };
 
 const getStyleLoaders = (isWeb, isModule) => {
