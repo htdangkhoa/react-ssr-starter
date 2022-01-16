@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:12-alpine AS deps
+FROM node:14-alpine AS deps
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
-FROM node:12-alpine AS builder
+FROM node:14-alpine AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ RUN yarn build
 RUN yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run app
-FROM node:12-alpine AS runner
+FROM node:14-alpine AS runner
 
 WORKDIR /app
 

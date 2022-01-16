@@ -53,6 +53,6 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-underscore-dangle': 'off',
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
-    'no-console': 'off',
+    // 'no-console': 'warn',
   },
 };

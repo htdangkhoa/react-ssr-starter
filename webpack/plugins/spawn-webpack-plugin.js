@@ -68,9 +68,23 @@ class SpawnWebpackPlugin {
   apply(compiler) {
     if (!this.opts.dev) return;
 
-    compiler.hooks.done.tapAsync(this.PLUGIN_NAME, (_, callback) => {
+    compiler.hooks.done.tapAsync(this.PLUGIN_NAME, (stats, callback) => {
       if (this.nodeProcess) {
         this.tryToKillProcess();
+      }
+
+      if (stats.hasErrors()) {
+        const msg = stats.toString({
+          colors: true,
+          modules: false,
+          children: false,
+          chunks: false,
+          chunkModules: false,
+        });
+
+        process.stdout.write(`${msg}\n`);
+
+        return process.exit(1);
       }
 
       this.nodeProcess = spawn(this.command, this.args, {
@@ -79,7 +93,7 @@ class SpawnWebpackPlugin {
         stdio: 'inherit',
       });
 
-      callback();
+      return callback();
     });
   }
 }
