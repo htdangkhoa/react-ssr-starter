@@ -28,7 +28,7 @@
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/): `^12.22.0`, `^14.17.0` or `>=16.0.0`
+- [Node.js](https://nodejs.org/en/download/): `^14.17.0` or `>=16.0.0`
 
 ## Getting Started
 
