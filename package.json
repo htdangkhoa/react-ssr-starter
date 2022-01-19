@@ -120,7 +120,7 @@
     "sass": "^1.48.0",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
-    "supertest": "^6.2.1",
+    "supertest": "^6.2.2",
     "swc-loader": "^0.1.15",
     "terser-webpack-plugin": "^5.3.0",
     "webpack": "^5.66.0",
