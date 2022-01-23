@@ -4,6 +4,7 @@ import whm from 'webpack-hot-middleware';
 import wdm from 'webpack-dev-middleware';
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
+import openBrowser from 'react-dev-utils/openBrowser';
 import colors from 'picocolors';
 
 import serverConfig from 'configs/server';
@@ -39,6 +40,9 @@ const printInstructions = () => {
 const compiler = webpack(config);
 
 const webpackMiddleware = (wsServer) => {
+  console.log(colors.cyan('Starting the development server...\n'));
+  openBrowser(`http://localhost:${serverConfig.PORT}`);
+
   let isFirstCompile = true;
 
   compiler.hooks.invalid.tap('invalid', () => {

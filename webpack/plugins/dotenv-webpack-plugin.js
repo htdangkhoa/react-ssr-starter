@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const { DefinePlugin, ProvidePlugin } = require('webpack');
 const dotenv = require('dotenv');
-const dotenvExpand = require('dotenv-expand');
+const { expand: dotenvExpand } = require('dotenv-expand');
 
 const REACT_APP = /^REACT_APP_/i;
 
