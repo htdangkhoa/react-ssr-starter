@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import compression from 'compression';
 import serve from 'serve-static';
+
+import websocketServerCreator from './websocket-server-creator';
 import render from '../render';
 import users from '../db/users.json';
 
@@ -19,7 +21,9 @@ const webpackMiddleware = __DEV__ ? require('../middlewares/webpack.middleware')
 
 /* istanbul ignore next */
 if (typeof webpackMiddleware === 'function') {
-  app.use(webpackMiddleware());
+  const ws = websocketServerCreator(app);
+
+  app.use(webpackMiddleware(ws));
 }
 
 app.get('/api/health', (req, res) => res.status(200).end());
