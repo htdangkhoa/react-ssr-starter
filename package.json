@@ -81,7 +81,7 @@
     "@swc/jest": "^0.2.17",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/react": "^13.0.0-alpha.5",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.2",
     "clean-webpack-plugin": "^4.0.0",
