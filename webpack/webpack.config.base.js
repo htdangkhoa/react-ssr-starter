@@ -9,8 +9,10 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 
-const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
+const { DotenvWebpackPlugin, loadEnv } = require('./plugins/dotenv-webpack-plugin');
 
+// load default env
+loadEnv();
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === 'true';
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true';
 
