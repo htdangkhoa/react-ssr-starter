@@ -26,6 +26,8 @@
   </a>
 </p>
 
+<p align="center">This is a boilerplate inspired <a href="https://create-react-app.dev">CRA</a>. Designed with high scalability, an offline-first foundation, and a focus on performance and best practices.</p>
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/): `^14.17.0` or `>=16.0.0`
@@ -155,6 +157,8 @@ REACT_APP_BAR=$DOMAIN/bar
 
 ## Configurations
 
+### Basic
+
 You can store your configurations in `src/configs/client.js` for client-side, `src/configs/server.js` for server-side. `src/configs/constants.js` is for constants.
 
 You can access the correct configuration with:
@@ -166,6 +170,21 @@ import constants from 'configs/constants';
 
 // ...
 ```
+
+### Advanced
+
+You can adjust various development and production settings by setting environment variables in your shell or with [.env](#environment-variables).
+
+> Note: You do not need to declare `REACT_APP_` before the below variables as you would with custom environment variables.
+
+| Variable                  | Development | Production | Usage                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------------- | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BROWSER`                 | ✅ Used     | 🚫 Ignored | By default, Create React App will open the default system browser, favoring Chrome on macOS. Specify a [browser](https://github.com/sindresorhus/open#app) to override this behavior, or set it to `none` to disable it completely. If you need to customize the way the browser is launched, you can specify a node script instead. Any arguments passed to `npm start` will also be passed to this script, and the url where your app is served will be the last argument. Your script's file name must have the `.js` extension. |
+| `BROWSER_ARGS`            | ✅ Used     | 🚫 Ignored | When the `BROWSER` environment variable is specified, any arguments that you set to this environment variable will be passed to the browser instance. Multiple arguments are supported as a space separated list. By default, no arguments are passed through to browsers.                                                                                                                                                                                                                                                          |
+| `PORT`                    | ✅ Used     | 🚫 Ignored | By default, the development web server will attempt to listen on port 9090 or prompt you to attempt the next available port. You may use this variable to specify a different port.                                                                                                                                                                                                                                                                                                                                                 |
+| `IMAGE_INLINE_SIZE_LIMIT` | ✅ Used     | ✅ Used    | By default, images smaller than 10,000 bytes are encoded as a data URI in base64 and inlined in the CSS or JS build artifact. Set this to control the size limit in bytes. Setting it to `0` will disable the inlining of images.                                                                                                                                                                                                                                                                                                   |
+| `ESLINT_NO_DEV_ERRORS`    | ✅ Used     | 🚫 Ignored | When set to `true`, ESLint errors are converted to warnings during development. As a result, ESLint output will no longer appear in the error overlay.                                                                                                                                                                                                                                                                                                                                                                              |
+| `DISABLE_ESLINT_PLUGIN`   | ✅ Used     | ✅ Used    | When set to `true`, [eslint-webpack-plugin](https://github.com/webpack-contrib/eslint-webpack-plugin) will be completely disabled.                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 ## Adding Styles
 

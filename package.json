@@ -46,7 +46,7 @@
     "generate": "plop",
     "gen": "plop",
     "prepare": "husky install",
-    "start": "node --no-warnings build/index.js",
+    "start": "node build/index.js",
     "pretest:ci": "node scripts/pretest.js",
     "test:ci": "cross-env NODE_ENV=test jest --runInBand",
     "pretest": "node scripts/pretest.js",

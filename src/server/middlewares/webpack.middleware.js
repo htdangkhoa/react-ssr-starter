@@ -37,11 +37,11 @@ const printInstructions = () => {
   console.log(`To create a production build, use ${colors.blue('npm run build')}.\n`);
 };
 
-const compiler = webpack(config);
-
 const webpackMiddleware = (wsServer) => {
   console.log(colors.cyan('Starting the development server...\n'));
   openBrowser(`http://localhost:${serverConfig.PORT}`);
+
+  const compiler = webpack(config);
 
   let isFirstCompile = true;
 
