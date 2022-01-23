@@ -5,7 +5,6 @@ import favicon from 'serve-favicon';
 import compression from 'compression';
 import serve from 'serve-static';
 
-import websocketServerCreator from './websocket-server-creator';
 import render from '../render';
 import users from '../db/users.json';
 
@@ -17,6 +16,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(serve(resolve(process.cwd(), 'public')));
 
 /* istanbul ignore next */
+const websocketServerCreator = __DEV__ ? require('./websocket-server-creator').default : undefined;
 const webpackMiddleware = __DEV__ ? require('../middlewares/webpack.middleware').default : undefined;
 
 /* istanbul ignore next */
