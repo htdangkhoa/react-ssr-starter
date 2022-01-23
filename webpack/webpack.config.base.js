@@ -3,13 +3,16 @@ const fs = require('fs');
 const glob = require('glob');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin: CleanPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 
 const DotenvWebpackPlugin = require('./plugins/dotenv-webpack-plugin');
+
+const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === 'true';
+const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true';
 
 // by default, a file with size less than 10000 bytes will be inlined as a data URI and emitted as a separate file otherwise
 const IMAGE_INLINE_SIZE_LIMIT = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000', 10);
@@ -66,17 +69,19 @@ const getPlugins = (isWeb) => {
     );
   }
 
-  plugins.push(
-    new ESLintPlugin({
-      extensions: ['js', 'jsx'],
-      cache: true,
-      cacheLocation: getPath('.cache/.eslintcache'),
-      threads: 2,
-      formatter: eslintFormatter,
-      failOnError: !isWeb || !_isDev,
-      exclude: ['node_modules', !isWeb && 'src/client', isWeb && 'src/server'].filter(Boolean),
-    }),
-  );
+  if (!disableESLintPlugin) {
+    plugins.push(
+      new ESLintPlugin({
+        extensions: ['js', 'jsx'],
+        cache: true,
+        cacheLocation: getPath('.cache/.eslintcache'),
+        threads: 2,
+        formatter: eslintFormatter,
+        failOnError: !(_isDev && emitErrorsAsWarnings),
+        exclude: ['node_modules', !isWeb && 'src/client', isWeb && 'src/server'].filter(Boolean),
+      }),
+    );
+  }
 
   return plugins.filter(Boolean);
 };
