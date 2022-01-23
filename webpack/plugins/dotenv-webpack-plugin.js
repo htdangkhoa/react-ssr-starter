@@ -11,6 +11,28 @@ const NODE_ENV = process.env.NODE_ENV;
 
 const envPath = path.resolve(process.cwd(), `.env`);
 
+const loadEnv = (...paths) => {
+  const envFiles = [
+    `${envPath}.${NODE_ENV}.local`,
+    /**
+     * Don't include `.env.local` for `test` environment
+     * since normally you expect tests to produce the same
+     * results for everyone
+     */
+    NODE_ENV !== 'test' && `${envPath}.local`,
+    `${envPath}.${NODE_ENV}`,
+    envPath,
+    ...paths,
+  ].filter(Boolean);
+
+  envFiles.forEach((file) => {
+    if (fs.existsSync(file)) {
+      dotenvExpand(dotenv.config({ path: file }));
+    }
+  });
+};
+exports.loadEnv = loadEnv;
+
 class DotenvWebpackPlugin {
   /**
    * @param {Object} [options]
@@ -22,23 +44,7 @@ class DotenvWebpackPlugin {
 
     this.options = { ...options };
 
-    const envFiles = [
-      `${envPath}.${NODE_ENV}.local`,
-      /**
-       * Don't include `.env.local` for `test` environment
-       * since normally you expect tests to produce the same
-       * results for everyone
-       */
-      NODE_ENV !== 'test' && `${envPath}.local`,
-      `${envPath}.${NODE_ENV}`,
-      this.options.path || envPath,
-    ].filter(Boolean);
-
-    envFiles.forEach((file) => {
-      if (fs.existsSync(file)) {
-        dotenvExpand(dotenv.config({ path: file }));
-      }
-    });
+    loadEnv(this.options.path);
   }
 
   /**
@@ -84,4 +90,4 @@ class DotenvWebpackPlugin {
   }
 }
 
-module.exports = DotenvWebpackPlugin;
+exports.DotenvWebpackPlugin = DotenvWebpackPlugin;
