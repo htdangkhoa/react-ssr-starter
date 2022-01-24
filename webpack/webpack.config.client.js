@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { baseConfig, getPath, isDev, mergeBaseEntry } = require('./webpack.config.base');
 
@@ -73,29 +72,11 @@ const getPlugins = () => {
 };
 
 const getOptimization = () => {
-  if (!_isDev) return undefined;
+  if (_isDev) return undefined;
 
   return {
     minimize: !_isDev,
     minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          parse: {
-            ecma: 8,
-          },
-          compress: { drop_console: true },
-          mangle: {
-            safari10: true,
-          },
-          keep_classnames: !_isDev,
-          keep_fnames: !_isDev,
-          output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true,
-          },
-        },
-      }),
       new CssMinimizerPlugin({
         minimizerOptions: {
           preset: [
@@ -139,5 +120,5 @@ module.exports = merge(config, {
   },
   plugins: getPlugins(),
   optimization: getOptimization(),
-  stats: _isDev ? 'none' : { children: true },
+  stats: _isDev ? 'none' : { children: true, errorDetails: true },
 });
