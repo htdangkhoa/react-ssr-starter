@@ -140,8 +140,12 @@ const getOptimization = () => {
       new TerserPlugin({
         parallel: true,
         extractComments: false,
+        minify: TerserPlugin.swcMinify,
         terserOptions: {
-          compress: { drop_console: true },
+          compress: {
+            drop_console: true,
+          },
+          mangle: true,
         },
       }),
     ],
@@ -150,6 +154,8 @@ const getOptimization = () => {
 
 const swcConfig = JSON.parse(fs.readFileSync(getPath('.swcrc'), 'utf-8'));
 swcConfig.jsc.transform.react.development = _isDev;
+swcConfig.sourceMaps = _isDev;
+swcConfig.minify = !_isDev;
 
 exports.baseConfig = (isWeb) => ({
   mode: _isDev ? 'development' : 'production',
@@ -238,4 +244,8 @@ exports.baseConfig = (isWeb) => ({
     alias: getAlias(),
   },
   optimization: getOptimization(),
+  // performance: {
+  //   maxEntrypointSize: 512000,
+  //   maxAssetSize: 512000,
+  // },
 });
