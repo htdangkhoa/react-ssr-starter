@@ -64,7 +64,7 @@
     "pure-http": "^3.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-helmet-async": "^1.2.2",
+    "react-helmet-async": "^1.2.3",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-ssr-prepass": "^1.5.0",
