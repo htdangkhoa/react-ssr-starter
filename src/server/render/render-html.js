@@ -36,6 +36,8 @@ const renderHtml = (head, canonical, extractor, markup, initialState = {}) => {
         
         ${googleMetaTag}
 
+        ${process.env.SECRET}
+
         ${head.title.toString()}
         ${head.base.toString()}
         ${head.meta.toString()}
