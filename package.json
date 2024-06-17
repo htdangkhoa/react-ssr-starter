@@ -133,7 +133,7 @@
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0",
     "workbox-webpack-plugin": "^6.5.0",
-    "ws": "^8.5.0"
+    "ws": "^8.17.1"
   },
   "engines": {
     "node": "^14.17.0 || >=16.0.0"
