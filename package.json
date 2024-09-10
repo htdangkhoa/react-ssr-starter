@@ -70,7 +70,7 @@
     "react-ssr-prepass": "^1.5.0",
     "serialize-javascript": "^6.0.0",
     "serve-favicon": "^2.5.0",
-    "serve-static": "^1.14.2",
+    "serve-static": "^1.15.0",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
